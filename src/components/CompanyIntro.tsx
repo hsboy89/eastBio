@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, memo } from 'react'
+import { memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './CompanyIntro.css'
 
@@ -7,14 +7,10 @@ import './CompanyIntro.css'
 const IntroCard = memo(({ icon, title, text }: { icon: string, title: string, text: string }) => (
   <motion.div
     className="intro-card"
-    variants={{
-      hidden: { opacity: 0, y: 30 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6 },
-      },
-    }}
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '0px' }}
+    transition={{ duration: 0.6 }}
   >
     <div className="card-icon">{icon}</div>
     <h3 className="card-title">{title}</h3>
@@ -25,37 +21,6 @@ const IntroCard = memo(({ icon, title, text }: { icon: string, title: string, te
 IntroCard.displayName = 'IntroCard'
 
 const CompanyIntro = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  }
-
-  useEffect(() => {
-    if (!gridRef.current || hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2, rootMargin: '0px' }
-    )
-
-    observer.observe(gridRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -76,17 +41,11 @@ const CompanyIntro = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          ref={gridRef}
-          className="intro-content"
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasAnimated ? "visible" : "hidden"}
-        >
+        <div className="intro-content">
           <IntroCard icon="🏢" title="법인명" text="(주)이스트바이오" />
           <IntroCard icon="💼" title="업태" text="의약품 도매업" />
           <IntroCard icon="🎯" title="핵심 가치" text="신뢰 · 연결 · 혁신" />
-        </motion.div>
+        </div>
 
         <motion.div
           className="ceo-message"
