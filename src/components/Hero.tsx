@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import Galaxy from './Galaxy'
+import LightRays from './LightRays'
 import './Hero.css'
 
 const Hero = () => {
@@ -24,21 +24,20 @@ const Hero = () => {
       </Helmet>
 
       <section id="hero" className="hero">
-        <div className="hero-galaxy">
-          <Galaxy
-            mouseRepulsion={false}
-            mouseInteraction={false}
-            density={0.6}
-            glowIntensity={0.15}
-            saturation={0}
-            hueShift={140}
-            twinkleIntensity={0.15}
-            rotationSpeed={0.05}
-            repulsionStrength={1}
-            autoCenterRepulsion={0}
-            starSpeed={0.3}
-            speed={0.5}
-            transparent={true}
+        <div className="hero-lightrays">
+          <LightRays
+            raysOrigin="top-center"
+            raysColor="#1a5f3f"
+            raysSpeed={0.8}
+            lightSpread={0.8}
+            rayLength={2.5}
+            followMouse={true}
+            mouseInfluence={0.15}
+            noiseAmount={0}
+            distortion={0}
+            pulsating={false}
+            fadeDistance={1}
+            saturation={0.9}
           />
         </div>
         <div className="hero-content">
