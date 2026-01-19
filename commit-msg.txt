@@ -1,1 +1,6 @@
-Fix: 각 섹션 카드 중복 렌더링 문제 해결 - viewport margin 조정
+Fix: 카드 중복 렌더링 방지 및 Hero 이미지 로딩 최적화
+
+- 각 섹션 카드에 useState로 애니메이션 상태 추적 추가
+- viewport amount를 0.3으로 설정하여 한 번만 실행되도록 보장
+- Hero 이미지 우선 프리로딩 (index.html, App.tsx)
+- 이미지 로딩 속도 개선 (loading='eager', fetchPriority='high')

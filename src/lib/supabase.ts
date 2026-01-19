@@ -12,7 +12,7 @@ export const getImageUrl = (imageName: string): string => {
 
 // 이미지 URL 목록
 export const imageUrls = {
-  hero: getImageUrl('main.png'),
+  hero: getImageUrl('main.webp'),
   company: getImageUrl('2.png'),
   business: getImageUrl('3.png'),
   strengths: getImageUrl('4.png'),
