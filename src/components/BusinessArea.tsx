@@ -103,8 +103,7 @@ const BusinessArea = () => {
           className="business-grid"
           variants={containerVariants}
           initial="hidden"
-          animate={hasAnimatedRef.current ? "visible" : "hidden"}
-          whileInView={!hasAnimatedRef.current ? "visible" : undefined}
+          whileInView={hasAnimatedRef.current ? undefined : "visible"}
           viewport={{ once: true, amount: 0.2 }}
           onViewportEnter={() => {
             if (!hasAnimatedRef.current) {

@@ -1,6 +1,6 @@
-Fix: useRef로 각 카드 애니메이션 완전히 한 번만 실행되도록 보장
+Fix: 각 grid 컨테이너만 애니메이션하고 card는 자동으로 불러오도록 수정
 
-- BusinessArea, Strengths: 컨테이너 레벨에서 useRef로 한 번만 실행
-- PartnersNetwork: 각 파트너 카드마다 ref 객체로 개별 추적
-- Contact: 각 연락처 정보 항목마다 ref 객체로 개별 추적
-- onViewportEnter에서 ref 체크하여 중복 실행 완전 차단
+- Contact: info-list를 grid로 변경하고 각 info-item의 개별 애니메이션 제거
+- CompanyIntro: intro-content grid에 useRef로 한 번만 실행 보장
+- Navigation: nav-menu에 grid 애니메이션 추가 (페이지 로드 시 한 번만 실행)
+- 모든 card는 grid의 staggerChildren으로만 애니메이션되도록 수정
