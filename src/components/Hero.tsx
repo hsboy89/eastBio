@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { imageUrls } from '../lib/supabase'
 import './Hero.css'
 
 const Hero = () => {
@@ -24,7 +25,10 @@ const Hero = () => {
 
       <section id="hero" className="hero">
         <div className="hero-background">
-          <div className="hero-background-image"></div>
+          <div 
+            className="hero-background-image"
+            style={{ backgroundImage: `url(${imageUrls.hero})` }}
+          ></div>
           <div className="hero-background-overlay"></div>
         </div>
         <div className="hero-content">

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
@@ -16,7 +17,11 @@ const Contact = () => {
         <meta name="contact" content="(주)이스트바이오 연락처 정보" />
       </Helmet>
 
-      <section id="contact" className="contact">
+      <section 
+        id="contact" 
+        className="contact"
+        style={{ '--bg-image': `url(${imageUrls.contact})` } as React.CSSProperties}
+      >
         <div className="section-container">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

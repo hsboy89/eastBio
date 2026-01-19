@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { imageUrls } from '../lib/supabase'
 import './CompanyIntro.css'
 
 const CompanyIntro = () => {
@@ -24,7 +25,11 @@ const CompanyIntro = () => {
   }
 
   return (
-    <section id="company" className="company-intro">
+    <section 
+      id="company" 
+      className="company-intro"
+      style={{ '--bg-image': `url(${imageUrls.company})` } as React.CSSProperties}
+    >
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

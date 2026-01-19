@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
 const PartnersNetwork = () => {
@@ -21,7 +22,11 @@ const PartnersNetwork = () => {
   ]
 
   return (
-    <section id="partners" className="partners-network">
+    <section 
+      id="partners" 
+      className="partners-network"
+      style={{ '--bg-image': `url(${imageUrls.partners})` } as React.CSSProperties}
+    >
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
