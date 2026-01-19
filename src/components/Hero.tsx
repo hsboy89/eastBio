@@ -26,18 +26,18 @@ const Hero = () => {
       <section id="hero" className="hero">
         <div className="hero-galaxy">
           <Galaxy
-            mouseRepulsion
-            mouseInteraction
-            density={1}
-            glowIntensity={0.3}
+            mouseRepulsion={false}
+            mouseInteraction={false}
+            density={0.6}
+            glowIntensity={0.15}
             saturation={0}
             hueShift={140}
-            twinkleIntensity={0.3}
-            rotationSpeed={0.1}
-            repulsionStrength={2}
+            twinkleIntensity={0.15}
+            rotationSpeed={0.05}
+            repulsionStrength={1}
             autoCenterRepulsion={0}
-            starSpeed={0.5}
-            speed={1}
+            starSpeed={0.3}
+            speed={0.5}
             transparent={true}
           />
         </div>
