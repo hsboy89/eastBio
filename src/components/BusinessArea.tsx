@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './BusinessArea.css'
 
 const BusinessArea = () => {
+  const hasAnimatedRef = useRef(false)
   const businessAreas = [
     {
       id: 1,
@@ -101,8 +103,14 @@ const BusinessArea = () => {
           className="business-grid"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
+          animate={hasAnimatedRef.current ? "visible" : "hidden"}
+          whileInView={!hasAnimatedRef.current ? "visible" : undefined}
           viewport={{ once: true, amount: 0.2 }}
+          onViewportEnter={() => {
+            if (!hasAnimatedRef.current) {
+              hasAnimatedRef.current = true
+            }
+          }}
         >
           {businessAreas.map((area) => (
             <motion.div

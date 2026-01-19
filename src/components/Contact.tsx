@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { useRef } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
@@ -10,6 +11,7 @@ const Contact = () => {
     { icon: '📠', label: '팩스', value: '02-1234-5679' },
     { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
   ]
+  const contactInfoAnimatedRefs = useRef<{ [key: number]: boolean }>({})
 
   return (
     <>
@@ -50,8 +52,14 @@ const Contact = () => {
                     key={index}
                     className="info-item"
                     initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    animate={contactInfoAnimatedRefs.current[index] ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                    whileInView={!contactInfoAnimatedRefs.current[index] ? { opacity: 1, y: 0 } : undefined}
                     viewport={{ once: true, amount: 0.3 }}
+                    onViewportEnter={() => {
+                      if (!contactInfoAnimatedRefs.current[index]) {
+                        contactInfoAnimatedRefs.current[index] = true
+                      }
+                    }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="info-icon">{info.icon}</div>

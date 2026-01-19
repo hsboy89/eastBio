@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useRef } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
@@ -11,6 +12,7 @@ const PartnersNetwork = () => {
     { id: 5, name: '의료기관 B', category: '의료기관' },
     { id: 6, name: '의료기관 C', category: '의료기관' },
   ]
+  const partnerAnimatedRefs = useRef<{ [key: number]: boolean }>({})
 
   const networkPoints = [
     { id: 1, city: '서울', x: 50, y: 30 },
@@ -54,8 +56,14 @@ const PartnersNetwork = () => {
                 key={partner.id}
                 className="partner-card"
                 initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
+                animate={partnerAnimatedRefs.current[partner.id] ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+                whileInView={!partnerAnimatedRefs.current[partner.id] ? { opacity: 1, scale: 1 } : undefined}
                 viewport={{ once: true, amount: 0.3 }}
+                onViewportEnter={() => {
+                  if (!partnerAnimatedRefs.current[partner.id]) {
+                    partnerAnimatedRefs.current[partner.id] = true
+                  }
+                }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -5, scale: 1.05 }}
               >

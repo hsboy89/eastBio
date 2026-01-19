@@ -1,1 +1,6 @@
-Trigger: Vercel 재배포 - main.webp 변경사항 반영
+Fix: 모든 섹션 카드 중복 렌더링 완전 해결
+
+- useState와 animate 조합 제거하여 불필요한 리렌더링 방지
+- whileInView만 사용하고 viewport={{ once: true, amount: 0.2 }}로 단순화
+- onViewportEnter 콜백 제거
+- 모든 섹션 컴포넌트 일관성 있게 수정 (CompanyIntro, BusinessArea, Strengths, PartnersNetwork, Contact)
