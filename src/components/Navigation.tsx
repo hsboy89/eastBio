@@ -1,10 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import './Navigation.css'
 
 const Navigation = () => {
+  const hasAnimatedRef = useRef(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +34,13 @@ const Navigation = () => {
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    // Navigation은 페이지 로드 시 바로 보이므로 한 번만 실행
+    if (!hasAnimatedRef.current) {
+      hasAnimatedRef.current = true
+    }
   }, [])
 
   const scrollToSection = (sectionId: string) => {
@@ -48,9 +77,14 @@ const Navigation = () => {
           <span className="logo-text">(주)이스트바이오</span>
         </motion.div>
 
-        <ul className="nav-menu">
+        <motion.ul
+          className="nav-menu"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {navItems.map((item) => (
-            <li key={item.id}>
+            <motion.li key={item.id} variants={itemVariants}>
               <motion.button
                 onClick={() => scrollToSection(item.id)}
                 whileHover={{ y: -2 }}
@@ -58,9 +92,9 @@ const Navigation = () => {
               >
                 {item.label}
               </motion.button>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
 
         <button
           className="mobile-menu-toggle"

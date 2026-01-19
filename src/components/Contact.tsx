@@ -5,13 +5,34 @@ import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
+  const hasAnimatedRef = useRef(false)
   const contactInfo = [
     { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
     { icon: '📞', label: '전화', value: '02-1234-5678' },
     { icon: '📠', label: '팩스', value: '02-1234-5679' },
     { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
   ]
-  const contactInfoAnimatedRefs = useRef<{ [key: number]: boolean }>({})
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
 
   return (
     <>
@@ -46,21 +67,24 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
             >
               <h3 className="info-title">연락처 정보</h3>
-              <div className="info-list">
+              <motion.div
+                className="info-list"
+                variants={containerVariants}
+                initial="hidden"
+                animate={hasAnimatedRef.current ? "visible" : "hidden"}
+                whileInView={!hasAnimatedRef.current ? "visible" : undefined}
+                viewport={{ once: true, amount: 0.2 }}
+                onViewportEnter={() => {
+                  if (!hasAnimatedRef.current) {
+                    hasAnimatedRef.current = true
+                  }
+                }}
+              >
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={index}
                     className="info-item"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={contactInfoAnimatedRefs.current[index] ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                    whileInView={!contactInfoAnimatedRefs.current[index] ? { opacity: 1, y: 0 } : undefined}
-                    viewport={{ once: true, amount: 0.3 }}
-                    onViewportEnter={() => {
-                      if (!contactInfoAnimatedRefs.current[index]) {
-                        contactInfoAnimatedRefs.current[index] = true
-                      }
-                    }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    variants={itemVariants}
                   >
                     <div className="info-icon">{info.icon}</div>
                     <div className="info-content">
@@ -69,7 +93,7 @@ const Contact = () => {
                     </div>
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </motion.div>
 
             <motion.div

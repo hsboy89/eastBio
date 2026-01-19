@@ -1,6 +1,6 @@
-Fix: 모든 섹션 카드 중복 렌더링 완전 해결
+Fix: useRef로 각 카드 애니메이션 완전히 한 번만 실행되도록 보장
 
-- useState와 animate 조합 제거하여 불필요한 리렌더링 방지
-- whileInView만 사용하고 viewport={{ once: true, amount: 0.2 }}로 단순화
-- onViewportEnter 콜백 제거
-- 모든 섹션 컴포넌트 일관성 있게 수정 (CompanyIntro, BusinessArea, Strengths, PartnersNetwork, Contact)
+- BusinessArea, Strengths: 컨테이너 레벨에서 useRef로 한 번만 실행
+- PartnersNetwork: 각 파트너 카드마다 ref 객체로 개별 추적
+- Contact: 각 연락처 정보 항목마다 ref 객체로 개별 추적
+- onViewportEnter에서 ref 체크하여 중복 실행 완전 차단

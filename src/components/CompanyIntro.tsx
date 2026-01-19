@@ -49,10 +49,13 @@ const CompanyIntro = () => {
           className="intro-content"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
+          animate={hasAnimatedRef.current ? "visible" : "hidden"}
+          whileInView={!hasAnimatedRef.current ? "visible" : undefined}
           viewport={{ once: true, amount: 0.2 }}
           onViewportEnter={() => {
-            hasAnimatedRef.current = true
+            if (!hasAnimatedRef.current) {
+              hasAnimatedRef.current = true
+            }
           }}
         >
           <motion.div className="intro-card" variants={itemVariants}>
