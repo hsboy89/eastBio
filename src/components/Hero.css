@@ -9,14 +9,14 @@
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
-.hero-galaxy {
+.hero-lightrays {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 1;
-  opacity: 0.5;
+  opacity: 0.4;
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
