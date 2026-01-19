@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import LightRays from './LightRays'
+import Prism from './Prism'
 import './Hero.css'
 
 const Hero = () => {
@@ -24,20 +24,18 @@ const Hero = () => {
       </Helmet>
 
       <section id="hero" className="hero">
-        <div className="hero-lightrays">
-          <LightRays
-            raysOrigin="top-center"
-            raysColor="#1a5f3f"
-            raysSpeed={0.8}
-            lightSpread={0.8}
-            rayLength={2.5}
-            followMouse={true}
-            mouseInfluence={0.15}
-            noiseAmount={0}
-            distortion={0}
-            pulsating={false}
-            fadeDistance={1}
-            saturation={0.9}
+        <div className="hero-prism">
+          <Prism
+            animationType="rotate"
+            timeScale={0.5}
+            height={3.5}
+            baseWidth={5.5}
+            scale={3.6}
+            hueShift={0}
+            colorFrequency={1}
+            noise={0}
+            glow={1}
+            transparent={true}
           />
         </div>
         <div className="hero-content">
