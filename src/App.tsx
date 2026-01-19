@@ -12,26 +12,29 @@ import './App.css'
 
 function App() {
   useEffect(() => {
-    // Lenis 스무스 스크롤 초기화
+    // Lenis 스무스 스크롤 초기화 (성능 최적화)
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.8,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.8,
+      touchMultiplier: 1.5,
       infinite: false,
     })
 
+    let rafId: number
     function raf(time: number) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
-
-    requestAnimationFrame(raf)
+    rafId = requestAnimationFrame(raf)
 
     return () => {
+      if (rafId) {
+        cancelAnimationFrame(rafId)
+      }
       lenis.destroy()
     }
   }, [])
