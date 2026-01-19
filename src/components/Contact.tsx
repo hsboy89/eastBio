@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { useRef } from 'react'
+import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
-  const hasAnimatedRef = useRef(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const contactInfo = [
     { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
     { icon: '📞', label: '전화', value: '02-1234-5678' },
@@ -71,11 +71,17 @@ const Contact = () => {
                 className="info-list"
                 variants={containerVariants}
                 initial="hidden"
-                whileInView={hasAnimatedRef.current ? undefined : "visible"}
+                animate={hasAnimated ? "visible" : "hidden"}
+                whileInView={!hasAnimated ? "visible" : undefined}
                 viewport={{ once: true, amount: 0.2 }}
                 onViewportEnter={() => {
-                  if (!hasAnimatedRef.current) {
-                    hasAnimatedRef.current = true
+                  if (!hasAnimated) {
+                    setHasAnimated(true)
+                  }
+                }}
+                onAnimationComplete={() => {
+                  if (!hasAnimated) {
+                    setHasAnimated(true)
                   }
                 }}
               >

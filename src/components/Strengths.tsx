@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { useRef } from 'react'
+import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Strengths.css'
 
 const Strengths = () => {
-  const hasAnimatedRef = useRef(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const strengths = [
     {
       id: 1,
@@ -100,11 +100,17 @@ const Strengths = () => {
           className="strengths-grid"
           variants={containerVariants}
           initial="hidden"
-          whileInView={hasAnimatedRef.current ? undefined : "visible"}
+          animate={hasAnimated ? "visible" : "hidden"}
+          whileInView={!hasAnimated ? "visible" : undefined}
           viewport={{ once: true, amount: 0.2 }}
           onViewportEnter={() => {
-            if (!hasAnimatedRef.current) {
-              hasAnimatedRef.current = true
+            if (!hasAnimated) {
+              setHasAnimated(true)
+            }
+          }}
+          onAnimationComplete={() => {
+            if (!hasAnimated) {
+              setHasAnimated(true)
             }
           }}
         >

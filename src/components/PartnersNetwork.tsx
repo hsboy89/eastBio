@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { useRef } from 'react'
+import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
 const PartnersNetwork = () => {
-  const hasAnimatedRef = useRef(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
   const partners = [
     { id: 1, name: '제약사 A', category: '제약사' },
     { id: 2, name: '제약사 B', category: '제약사' },
@@ -75,11 +75,17 @@ const PartnersNetwork = () => {
             className="partners-grid"
             variants={containerVariants}
             initial="hidden"
-            whileInView={hasAnimatedRef.current ? undefined : "visible"}
+            animate={hasAnimated ? "visible" : "hidden"}
+            whileInView={!hasAnimated ? "visible" : undefined}
             viewport={{ once: true, amount: 0.2 }}
             onViewportEnter={() => {
-              if (!hasAnimatedRef.current) {
-                hasAnimatedRef.current = true
+              if (!hasAnimated) {
+                setHasAnimated(true)
+              }
+            }}
+            onAnimationComplete={() => {
+              if (!hasAnimated) {
+                setHasAnimated(true)
               }
             }}
           >
