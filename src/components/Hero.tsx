@@ -8,9 +8,20 @@ const Hero = () => {
   const [imageLoaded, setImageLoaded] = useState(false)
 
   useEffect(() => {
-    // 이미지 프리로딩
+    // 이미지가 이미 캐시되어 있을 수 있으므로 먼저 확인
     const img = new Image()
+    
+    // 이미지가 이미 로드되어 있는지 확인
+    if (img.complete || img.naturalWidth > 0) {
+      setImageLoaded(true)
+      return
+    }
+
+    // 이미지 프리로딩 (우선순위 높음)
     img.src = imageUrls.hero
+    img.loading = 'eager' // 즉시 로드
+    img.fetchPriority = 'high' // 높은 우선순위
+    
     img.onload = () => {
       setImageLoaded(true)
     }

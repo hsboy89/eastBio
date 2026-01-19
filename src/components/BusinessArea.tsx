@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion'
+import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './BusinessArea.css'
 
 const BusinessArea = () => {
+  const [hasAnimated, setHasAnimated] = useState(false)
   const businessAreas = [
     {
       id: 1,
@@ -101,8 +103,14 @@ const BusinessArea = () => {
           className="business-grid"
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '0px' }}
+          animate={hasAnimated ? "visible" : "hidden"}
+          whileInView={!hasAnimated ? "visible" : undefined}
+          viewport={{ once: true, amount: 0.3 }}
+          onViewportEnter={() => {
+            if (!hasAnimated) {
+              setHasAnimated(true)
+            }
+          }}
         >
           {businessAreas.map((area) => (
             <motion.div

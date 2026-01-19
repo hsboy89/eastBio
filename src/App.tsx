@@ -12,10 +12,16 @@ import Navigation from './components/Navigation'
 import './App.css'
 
 function App() {
-  // 모든 이미지 프리로딩
+  // Hero 이미지를 최우선으로 프리로딩
   useEffect(() => {
-    const preloadImages = [
-      imageUrls.hero,
+    // Hero 이미지를 가장 먼저 로드 (우선순위 높음)
+    const heroImg = new Image()
+    heroImg.src = imageUrls.hero
+    heroImg.loading = 'eager'
+    heroImg.fetchPriority = 'high'
+    
+    // 나머지 이미지들은 순차적으로 로드
+    const otherImages = [
       imageUrls.company,
       imageUrls.business,
       imageUrls.strengths,
@@ -23,17 +29,23 @@ function App() {
       imageUrls.contact,
     ]
 
-    preloadImages.forEach((url) => {
-      const link = document.createElement('link')
-      link.rel = 'preload'
-      link.as = 'image'
-      link.href = url
-      document.head.appendChild(link)
-
-      // 실제 이미지도 미리 로드
-      const img = new Image()
-      img.src = url
-    })
+    // Hero 이미지 로드 후 나머지 이미지 로드
+    heroImg.onload = () => {
+      otherImages.forEach((url) => {
+        const img = new Image()
+        img.src = url
+        img.loading = 'lazy'
+      })
+    }
+    
+    heroImg.onerror = () => {
+      // 에러가 나도 나머지 이미지는 로드
+      otherImages.forEach((url) => {
+        const img = new Image()
+        img.src = url
+        img.loading = 'lazy'
+      })
+    }
   }, [])
   useEffect(() => {
     // Lenis 스무스 스크롤 초기화 (성능 최적화)

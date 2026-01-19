@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
+  const [hasAnimated, setHasAnimated] = useState(false)
   const contactInfo = [
     { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
     { icon: '📞', label: '전화', value: '02-1234-5678' },
@@ -39,8 +41,14 @@ const Contact = () => {
             <motion.div
               className="contact-info"
               initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '0px' }}
+              animate={hasAnimated ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
+              whileInView={!hasAnimated ? { opacity: 1, x: 0 } : undefined}
+              viewport={{ once: true, amount: 0.3 }}
+              onViewportEnter={() => {
+                if (!hasAnimated) {
+                  setHasAnimated(true)
+                }
+              }}
               transition={{ duration: 0.8 }}
             >
               <h3 className="info-title">연락처 정보</h3>
@@ -51,7 +59,7 @@ const Contact = () => {
                     className="info-item"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '0px' }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="info-icon">{info.icon}</div>

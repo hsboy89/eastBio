@@ -1,1 +1,1 @@
-Update: 이미지 로딩 최적화 및 StrictMode 제거, favicon 에러 수정
+Fix: 각 섹션 카드 중복 렌더링 문제 해결 - viewport margin 조정
