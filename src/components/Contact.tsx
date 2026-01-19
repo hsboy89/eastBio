@@ -1,34 +1,22 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { useState, useEffect, useRef, memo } from 'react'
+import { memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
-// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
-const CONTACT_INFO_DATA = [
-  { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
-  { icon: '📞', label: '전화', value: '02-1234-5678' },
-  { icon: '📠', label: '팩스', value: '02-1234-5679' },
-  { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
-] as const
-
-// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
-const ContactInfoItem = memo(({ info }: { info: typeof CONTACT_INFO_DATA[number] }) => (
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지 (회사소개 방식 적용)
+const ContactInfoItem = memo(({ icon, label, value }: { icon: string, label: string, value: string }) => (
   <motion.div
     className="info-item"
-    variants={{
-      hidden: { opacity: 0, y: 20 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.5 },
-      },
-    }}
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: '0px' }}
+    transition={{ duration: 0.5 }}
   >
-    <div className="info-icon">{info.icon}</div>
+    <div className="info-icon">{icon}</div>
     <div className="info-content">
-      <div className="info-label">{info.label}</div>
-      <div className="info-value">{info.value}</div>
+      <div className="info-label">{label}</div>
+      <div className="info-value">{value}</div>
     </div>
   </motion.div>
 ))
@@ -36,38 +24,6 @@ const ContactInfoItem = memo(({ info }: { info: typeof CONTACT_INFO_DATA[number]
 ContactInfoItem.displayName = 'ContactInfoItem'
 
 const Contact = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  }
-
-  useEffect(() => {
-    if (!gridRef.current || hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2, rootMargin: '0px' }
-    )
-
-    observer.observe(gridRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <>
@@ -102,17 +58,12 @@ const Contact = () => {
               transition={{ duration: 0.8 }}
             >
               <h3 className="info-title">연락처 정보</h3>
-              <motion.div
-                ref={gridRef}
-                className="info-list"
-                variants={containerVariants}
-                initial="hidden"
-                animate={hasAnimated ? "visible" : "hidden"}
-              >
-                {CONTACT_INFO_DATA.map((info, index) => (
-                  <ContactInfoItem key={index} info={info} />
-                ))}
-              </motion.div>
+              <div className="info-list">
+                <ContactInfoItem icon="📍" label="주소" value="서울특별시 강남구 테헤란로 123" />
+                <ContactInfoItem icon="📞" label="전화" value="02-1234-5678" />
+                <ContactInfoItem icon="📠" label="팩스" value="02-1234-5679" />
+                <ContactInfoItem icon="✉️" label="이메일" value="contact@eastbio.co.kr" />
+              </div>
             </motion.div>
 
             <motion.div

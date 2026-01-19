@@ -1,117 +1,40 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, memo } from 'react'
+import { memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Strengths.css'
 
-// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
-const STRENGTHS_DATA = [
-    {
-      id: 1,
-      title: '콜드체인 시스템',
-      description: (
-        <>
-          의약품의 품질을 보장하기 위한<br />
-          정밀한 온도 관리 시스템을 운영합니다.
-        </>
-      ),
-      icon: '❄️',
-      stats: '±2°C 정밀 관리',
-    },
-    {
-      id: 2,
-      title: '신속 배송 네트워크',
-      description: (
-        <>
-          전국 유통망을 활용한<br />
-          빠르고 안정적인 배송 서비스를 제공합니다.
-        </>
-      ),
-      icon: '🚚',
-      stats: '24시간 내 배송',
-    },
-    {
-      id: 3,
-      title: '데이터 기반 물류',
-      description: (
-        <>
-          실시간 추적 시스템으로<br />
-          물류 프로세스를 최적화합니다.
-        </>
-      ),
-      icon: '📊',
-      stats: '실시간 모니터링',
-    },
-    {
-      id: 4,
-      title: '품질 보증 시스템',
-      description: (
-        <>
-          엄격한 품질 관리 기준을 통해<br />
-          안전한 의약품을 공급합니다.
-        </>
-      ),
-      icon: '✅',
-      stats: '100% 품질 검증',
-    },
-  ] as const
-
-// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
-const StrengthCard = memo(({ strength, index }: { strength: typeof STRENGTHS_DATA[number], index: number }) => (
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지 (회사소개 방식 적용)
+const StrengthCard = memo(({ 
+  icon, 
+  title, 
+  description, 
+  stats, 
+  index 
+}: { 
+  icon: string
+  title: string
+  description: React.ReactNode
+  stats: string
+  index: number
+}) => (
   <motion.div
     className="strength-card"
-    variants={{
-      hidden: { opacity: 0, x: -30 },
-      visible: {
-        opacity: 1,
-        x: 0,
-        transition: { duration: 0.6 },
-      },
-    }}
+    initial={{ opacity: 0, x: -30 }}
+    whileInView={{ opacity: 1, x: 0 }}
+    viewport={{ once: true, margin: '0px' }}
+    transition={{ duration: 0.6 }}
     whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
-    transition={{ duration: 0.3 }}
   >
-    <div className="strength-icon">{strength.icon}</div>
-    <h3 className="strength-title">{strength.title}</h3>
-    <p className="strength-description">{strength.description}</p>
-    <div className="strength-stats">{strength.stats}</div>
+    <div className="strength-icon">{icon}</div>
+    <h3 className="strength-title">{title}</h3>
+    <p className="strength-description">{description}</p>
+    <div className="strength-stats">{stats}</div>
   </motion.div>
 ))
 
 StrengthCard.displayName = 'StrengthCard'
 
 const Strengths = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  }
-
-  useEffect(() => {
-    if (!gridRef.current || hasAnimated) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting && !hasAnimated) {
-          setHasAnimated(true)
-          observer.disconnect()
-        }
-      },
-      { threshold: 0.2, rootMargin: '0px' }
-    )
-
-    observer.observe(gridRef.current)
-
-    return () => {
-      observer.disconnect()
-    }
-  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -132,17 +55,48 @@ const Strengths = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          ref={gridRef}
-          className="strengths-grid"
-          variants={containerVariants}
-          initial="hidden"
-          animate={hasAnimated ? "visible" : "hidden"}
-        >
-          {STRENGTHS_DATA.map((strength, index) => (
-            <StrengthCard key={strength.id} strength={strength} index={index} />
-          ))}
-        </motion.div>
+        <div className="strengths-grid">
+          <StrengthCard
+            icon="❄️"
+            title="콜드체인 시스템"
+            description={<>
+              의약품의 품질을 보장하기 위한<br />
+              정밀한 온도 관리 시스템을 운영합니다.
+            </>}
+            stats="±2°C 정밀 관리"
+            index={0}
+          />
+          <StrengthCard
+            icon="🚚"
+            title="신속 배송 네트워크"
+            description={<>
+              전국 유통망을 활용한<br />
+              빠르고 안정적인 배송 서비스를 제공합니다.
+            </>}
+            stats="24시간 내 배송"
+            index={1}
+          />
+          <StrengthCard
+            icon="📊"
+            title="데이터 기반 물류"
+            description={<>
+              실시간 추적 시스템으로<br />
+              물류 프로세스를 최적화합니다.
+            </>}
+            stats="실시간 모니터링"
+            index={2}
+          />
+          <StrengthCard
+            icon="✅"
+            title="품질 보증 시스템"
+            description={<>
+              엄격한 품질 관리 기준을 통해<br />
+              안전한 의약품을 공급합니다.
+            </>}
+            stats="100% 품질 검증"
+            index={3}
+          />
+        </div>
 
         <motion.div
           className="strengths-visual"
