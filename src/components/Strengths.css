@@ -1,9 +1,42 @@
 .strengths {
+  position: relative;
   background: var(--bg-white);
   padding: 120px 0;
+  overflow: hidden;
+}
+
+.strengths::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/4.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.strengths::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.4) 100%
+  );
+  z-index: 1;
 }
 
 .strengths-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
@@ -11,7 +44,7 @@
 }
 
 .strength-card {
-  background: linear-gradient(135deg, rgba(26, 95, 63, 0.05) 0%, rgba(45, 143, 95, 0.05) 100%);
+  background: rgba(255, 255, 255, 0.95);
   padding: 2.5rem;
   border-radius: 20px;
   text-align: center;
@@ -19,6 +52,8 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
 }
 
 .strength-card::before {
@@ -53,13 +88,15 @@
   font-weight: 700;
   color: var(--primary-color);
   margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .strength-description {
   font-size: 1rem;
-  color: var(--text-light);
+  color: var(--text-dark);
   line-height: 1.7;
   margin-bottom: 1.5rem;
+  font-weight: 500;
 }
 
 .strength-stats {
@@ -73,6 +110,8 @@
 }
 
 .strengths-visual {
+  position: relative;
+  z-index: 2;
   max-width: 900px;
   margin: 0 auto;
   background: var(--gradient-primary);

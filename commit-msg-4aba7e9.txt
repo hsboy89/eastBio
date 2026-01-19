@@ -1,0 +1,2 @@
+Fix: Vercel 오류를 해결한 설정 추가 (.npmrc 및 overrides 추가)
+

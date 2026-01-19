@@ -1,0 +1,1 @@
+Config: Git 인코딩 설정 및 .gitattributes 추가

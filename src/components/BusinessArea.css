@@ -1,21 +1,55 @@
 .business-area {
+  position: relative;
   background: var(--bg-light);
   padding: 120px 0;
+  overflow: hidden;
+}
+
+.business-area::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/3.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.business-area::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 249, 250, 0.3) 0%,
+    rgba(233, 236, 239, 0.4) 100%
+  );
+  z-index: 1;
 }
 
 .business-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2.5rem;
 }
 
 .business-card {
-  background: var(--bg-white);
+  background: rgba(255, 255, 255, 0.95);
   padding: 3rem;
   border-radius: 25px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  backdrop-filter: blur(10px);
 }
 
 .business-card:hover {
@@ -39,13 +73,15 @@
   font-size: 1.8rem;
   font-weight: 700;
   color: var(--primary-color);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .card-description {
   font-size: 1.1rem;
-  color: var(--text-light);
+  color: var(--text-dark);
   line-height: 1.8;
   margin-bottom: 2rem;
+  font-weight: 500;
 }
 
 .card-features {
@@ -62,6 +98,7 @@
   color: var(--text-dark);
   margin-bottom: 0.75rem;
   padding: 0.5rem 0;
+  font-weight: 500;
 }
 
 .feature-check {

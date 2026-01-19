@@ -1,0 +1,2 @@
+Merge: LightRays 컴포넌트로 변경 충돌
+

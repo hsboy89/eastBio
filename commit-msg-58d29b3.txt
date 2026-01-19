@@ -1,0 +1,2 @@
+Fix: .gitignore에 .vite 추가
+

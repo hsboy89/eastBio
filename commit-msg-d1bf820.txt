@@ -1,0 +1,2 @@
+Performance: 성능 최적화 - Galaxy 파라미터 조정, Lenis 성능 최적화 및 GPU 가속 추가
+
