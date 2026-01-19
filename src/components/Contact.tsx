@@ -26,7 +26,7 @@ const Contact = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: '0px' }}
             transition={{ duration: 0.6 }}
           >
             <h2 className="section-title">연락처</h2>
@@ -40,7 +40,7 @@ const Contact = () => {
               className="contact-info"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '0px' }}
               transition={{ duration: 0.8 }}
             >
               <h3 className="info-title">연락처 정보</h3>
@@ -51,7 +51,7 @@ const Contact = () => {
                     className="info-item"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    viewport={{ once: true, margin: '0px' }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                   >
                     <div className="info-icon">{info.icon}</div>
@@ -68,7 +68,7 @@ const Contact = () => {
               className="contact-map"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-100px' }}
+              viewport={{ once: true, margin: '0px' }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <h3 className="map-title">오시는 길</h3>
@@ -89,7 +89,7 @@ const Contact = () => {
             className="contact-footer"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-100px' }}
+            viewport={{ once: true, margin: '0px' }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             <p className="footer-text">

@@ -1,1 +1,1 @@
-Update: Supabase Storage에서 이미지 로드하도록 변경
+Update: 이미지 로딩 최적화 및 StrictMode 제거, favicon 에러 수정

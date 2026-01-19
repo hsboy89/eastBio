@@ -34,7 +34,7 @@ const CompanyIntro = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">회사 소개</h2>
@@ -48,7 +48,7 @@ const CompanyIntro = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
         >
           <motion.div className="intro-card" variants={itemVariants}>
             <div className="card-icon">🏢</div>
@@ -73,7 +73,7 @@ const CompanyIntro = () => {
           className="ceo-message"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <div className="message-content">

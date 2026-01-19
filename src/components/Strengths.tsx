@@ -85,7 +85,7 @@ const Strengths = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
           transition={{ duration: 0.6 }}
         >
           <h2 className="section-title">핵심 역량</h2>
@@ -99,7 +99,7 @@ const Strengths = () => {
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
         >
           {strengths.map((strength, index) => (
             <motion.div
@@ -121,7 +121,7 @@ const Strengths = () => {
           className="strengths-visual"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-100px' }}
+          viewport={{ once: true, margin: '0px' }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
           <div className="visual-content">
