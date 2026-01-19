@@ -2,6 +2,9 @@
   width: 100%;
   min-height: 100vh;
   position: relative;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* 섹션 공통 스타일 */
@@ -13,6 +16,8 @@ section {
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 
 .section-container {
