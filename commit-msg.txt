@@ -1,6 +1,7 @@
-Fix: PartnersNetwork partner-card 중복 렌더링 완전 해결
+Fix: useState로 애니메이션 상태 고정하여 스크롤 시 재조회 방지
 
-- partners-grid를 motion.div로 변경하고 containerVariants 적용
-- 각 partner-card의 개별 animate/whileInView 제거, variants만 사용
-- grid 레벨에서 staggerChildren으로 순차 애니메이션
-- useRef로 한 번만 실행되도록 보장 (Framer Motion 최적화)
+- useRef 대신 useState 사용하여 애니메이션 상태 관리
+- animate prop으로 한 번 완료되면 상태 고정
+- onAnimationComplete로 애니메이션 완료 후 상태 확정
+- 스크롤해도 데이터가 이미 있으면 재조회하지 않도록 보장
+- PartnersNetwork, BusinessArea, Strengths, CompanyIntro, Contact 모두 수정

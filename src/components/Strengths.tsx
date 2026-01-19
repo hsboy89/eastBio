@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Strengths.css'
 
 const Strengths = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
-  const strengths = [
+  const gridRef = useRef<HTMLDivElement>(null)
+  const strengths = useMemo(() => [
     {
       id: 1,
       title: '콜드체인 시스템',
@@ -54,7 +55,7 @@ const Strengths = () => {
       icon: '✅',
       stats: '100% 품질 검증',
     },
-  ]
+  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -77,6 +78,28 @@ const Strengths = () => {
     },
   }
 
+  useEffect(() => {
+    if (!gridRef.current || hasAnimated) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '0px' }
+    )
+
+    observer.observe(gridRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasAnimated])
+
   return (
     <section 
       id="strengths" 
@@ -97,22 +120,11 @@ const Strengths = () => {
         </motion.div>
 
         <motion.div
+          ref={gridRef}
           className="strengths-grid"
           variants={containerVariants}
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
-          whileInView={!hasAnimated ? "visible" : undefined}
-          viewport={{ once: true, amount: 0.2 }}
-          onViewportEnter={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
-          onAnimationComplete={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
         >
           {strengths.map((strength, index) => (
             <motion.div

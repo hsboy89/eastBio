@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './CompanyIntro.css'
 
 const CompanyIntro = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
+  const gridRef = useRef<HTMLDivElement>(null)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,6 +27,28 @@ const CompanyIntro = () => {
     },
   }
 
+  useEffect(() => {
+    if (!gridRef.current || hasAnimated) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '0px' }
+    )
+
+    observer.observe(gridRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasAnimated])
+
   return (
     <section 
       id="company" 
@@ -46,22 +69,11 @@ const CompanyIntro = () => {
         </motion.div>
 
         <motion.div
+          ref={gridRef}
           className="intro-content"
           variants={containerVariants}
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
-          whileInView={!hasAnimated ? "visible" : undefined}
-          viewport={{ once: true, amount: 0.2 }}
-          onViewportEnter={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
-          onAnimationComplete={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
         >
           <motion.div className="intro-card" variants={itemVariants}>
             <div className="card-icon">🏢</div>

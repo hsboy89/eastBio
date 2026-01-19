@@ -1,18 +1,19 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
 const PartnersNetwork = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
-  const partners = [
+  const gridRef = useRef<HTMLDivElement>(null)
+  const partners = useMemo(() => [
     { id: 1, name: '제약사 A', category: '제약사' },
     { id: 2, name: '제약사 B', category: '제약사' },
     { id: 3, name: '제약사 C', category: '제약사' },
     { id: 4, name: '의료기관 A', category: '의료기관' },
     { id: 5, name: '의료기관 B', category: '의료기관' },
     { id: 6, name: '의료기관 C', category: '의료기관' },
-  ]
+  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -44,6 +45,28 @@ const PartnersNetwork = () => {
     { id: 6, city: '대전', x: 50, y: 50 },
   ]
 
+  useEffect(() => {
+    if (!gridRef.current || hasAnimated) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '0px' }
+    )
+
+    observer.observe(gridRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasAnimated])
+
   return (
     <section 
       id="partners" 
@@ -72,22 +95,11 @@ const PartnersNetwork = () => {
         >
           <h3 className="partners-title">주요 파트너사</h3>
           <motion.div
+            ref={gridRef}
             className="partners-grid"
             variants={containerVariants}
             initial="hidden"
             animate={hasAnimated ? "visible" : "hidden"}
-            whileInView={!hasAnimated ? "visible" : undefined}
-            viewport={{ once: true, amount: 0.2 }}
-            onViewportEnter={() => {
-              if (!hasAnimated) {
-                setHasAnimated(true)
-              }
-            }}
-            onAnimationComplete={() => {
-              if (!hasAnimated) {
-                setHasAnimated(true)
-              }
-            }}
           >
             {partners.map((partner) => (
               <motion.div

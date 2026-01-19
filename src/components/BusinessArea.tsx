@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './BusinessArea.css'
 
 const BusinessArea = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
-  const businessAreas = [
+  const gridRef = useRef<HTMLDivElement>(null)
+  const businessAreas = useMemo(() => [
     {
       id: 1,
       title: '전문의약품 유통',
@@ -57,7 +58,7 @@ const BusinessArea = () => {
       icon: '🏥',
       features: ['전문 유통 서비스', 'A/S 지원', '기술 지원'],
     },
-  ]
+  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,6 +81,28 @@ const BusinessArea = () => {
     },
   }
 
+  useEffect(() => {
+    if (!gridRef.current || hasAnimated) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '0px' }
+    )
+
+    observer.observe(gridRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasAnimated])
+
   return (
     <section 
       id="business" 
@@ -100,22 +123,11 @@ const BusinessArea = () => {
         </motion.div>
 
         <motion.div
+          ref={gridRef}
           className="business-grid"
           variants={containerVariants}
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
-          whileInView={!hasAnimated ? "visible" : undefined}
-          viewport={{ once: true, amount: 0.2 }}
-          onViewportEnter={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
-          onAnimationComplete={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
         >
           {businessAreas.map((area) => (
             <motion.div

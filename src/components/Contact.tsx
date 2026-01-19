@@ -1,17 +1,18 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { useState } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
-  const contactInfo = [
+  const gridRef = useRef<HTMLDivElement>(null)
+  const contactInfo = useMemo(() => [
     { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
     { icon: '📞', label: '전화', value: '02-1234-5678' },
     { icon: '📠', label: '팩스', value: '02-1234-5679' },
     { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
-  ]
+  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -33,6 +34,28 @@ const Contact = () => {
       },
     },
   }
+
+  useEffect(() => {
+    if (!gridRef.current || hasAnimated) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            setHasAnimated(true)
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.2, rootMargin: '0px' }
+    )
+
+    observer.observe(gridRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [hasAnimated])
 
   return (
     <>
@@ -68,22 +91,11 @@ const Contact = () => {
             >
               <h3 className="info-title">연락처 정보</h3>
               <motion.div
+                ref={gridRef}
                 className="info-list"
                 variants={containerVariants}
                 initial="hidden"
                 animate={hasAnimated ? "visible" : "hidden"}
-                whileInView={!hasAnimated ? "visible" : undefined}
-                viewport={{ once: true, amount: 0.2 }}
-                onViewportEnter={() => {
-                  if (!hasAnimated) {
-                    setHasAnimated(true)
-                  }
-                }}
-                onAnimationComplete={() => {
-                  if (!hasAnimated) {
-                    setHasAnimated(true)
-                  }
-                }}
               >
                 {contactInfo.map((info, index) => (
                   <motion.div
