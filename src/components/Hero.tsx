@@ -1,9 +1,23 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
+import { useEffect, useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Hero.css'
 
 const Hero = () => {
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    // 이미지 프리로딩
+    const img = new Image()
+    img.src = imageUrls.hero
+    img.onload = () => {
+      setImageLoaded(true)
+    }
+    img.onerror = () => {
+      setImageLoaded(true) // 에러가 나도 계속 진행
+    }
+  }, [])
 
   const scrollToNext = () => {
     const element = document.getElementById('company')
@@ -26,9 +40,12 @@ const Hero = () => {
       <section id="hero" className="hero">
         <div className="hero-background">
           <div 
-            className="hero-background-image"
-            style={{ backgroundImage: `url(${imageUrls.hero})` }}
+            className={`hero-background-image ${imageLoaded ? 'loaded' : 'loading'}`}
+            style={{ backgroundImage: imageLoaded ? `url(${imageUrls.hero})` : 'none' }}
           ></div>
+          {!imageLoaded && (
+            <div className="hero-background-placeholder"></div>
+          )}
           <div className="hero-background-overlay"></div>
         </div>
         <div className="hero-content">

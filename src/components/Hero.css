@@ -28,12 +28,40 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/main.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   will-change: transform;
   transform: translateZ(0);
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-background-image.loading {
+  opacity: 0;
+}
+
+.hero-background-image.loaded {
+  opacity: 1;
+}
+
+.hero-background-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a5f3f 0%, #2d8f5f 50%, #1a5f3f 100%);
+  z-index: 0;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
 }
 
 .hero-background-overlay {
