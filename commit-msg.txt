@@ -1,6 +1,5 @@
-Fix: 각 grid 컨테이너만 애니메이션하고 card는 자동으로 불러오도록 수정
+Fix: animate 제거하고 whileInView만 사용하여 card 중복 렌더링 완전 해결
 
-- Contact: info-list를 grid로 변경하고 각 info-item의 개별 애니메이션 제거
-- CompanyIntro: intro-content grid에 useRef로 한 번만 실행 보장
-- Navigation: nav-menu에 grid 애니메이션 추가 (페이지 로드 시 한 번만 실행)
-- 모든 card는 grid의 staggerChildren으로만 애니메이션되도록 수정
+- animate와 whileInView 동시 사용으로 인한 중복 트리거 문제 해결
+- whileInView만 사용하고 hasAnimatedRef로 한 번만 실행 보장
+- BusinessArea, Strengths, CompanyIntro, Contact 모든 grid 수정

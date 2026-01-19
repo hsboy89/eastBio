@@ -4,6 +4,7 @@ import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
 const PartnersNetwork = () => {
+  const hasAnimatedRef = useRef(false)
   const partners = [
     { id: 1, name: '제약사 A', category: '제약사' },
     { id: 2, name: '제약사 B', category: '제약사' },
@@ -12,7 +13,27 @@ const PartnersNetwork = () => {
     { id: 5, name: '의료기관 B', category: '의료기관' },
     { id: 6, name: '의료기관 C', category: '의료기관' },
   ]
-  const partnerAnimatedRefs = useRef<{ [key: number]: boolean }>({})
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { opacity: 0, scale: 0.8 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.5,
+      },
+    },
+  }
 
   const networkPoints = [
     { id: 1, city: '서울', x: 50, y: 30 },
@@ -50,28 +71,30 @@ const PartnersNetwork = () => {
           transition={{ duration: 0.8 }}
         >
           <h3 className="partners-title">주요 파트너사</h3>
-          <div className="partners-grid">
-            {partners.map((partner, index) => (
+          <motion.div
+            className="partners-grid"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView={hasAnimatedRef.current ? undefined : "visible"}
+            viewport={{ once: true, amount: 0.2 }}
+            onViewportEnter={() => {
+              if (!hasAnimatedRef.current) {
+                hasAnimatedRef.current = true
+              }
+            }}
+          >
+            {partners.map((partner) => (
               <motion.div
                 key={partner.id}
                 className="partner-card"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={partnerAnimatedRefs.current[partner.id] ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
-                whileInView={!partnerAnimatedRefs.current[partner.id] ? { opacity: 1, scale: 1 } : undefined}
-                viewport={{ once: true, amount: 0.3 }}
-                onViewportEnter={() => {
-                  if (!partnerAnimatedRefs.current[partner.id]) {
-                    partnerAnimatedRefs.current[partner.id] = true
-                  }
-                }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                variants={itemVariants}
                 whileHover={{ y: -5, scale: 1.05 }}
               >
                 <div className="partner-category">{partner.category}</div>
                 <div className="partner-name">{partner.name}</div>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         <motion.div
