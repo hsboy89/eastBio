@@ -1,0 +1,130 @@
+.partners-network {
+  background: var(--bg-light);
+  padding: 120px 0;
+}
+
+.partners-section {
+  margin-bottom: 6rem;
+}
+
+.partners-title,
+.network-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.partner-card {
+  background: var(--bg-white);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.partner-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 25px rgba(26, 95, 63, 0.15);
+}
+
+.partner-category {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+}
+
+.partner-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.network-section {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.network-map {
+  background: var(--bg-white);
+  padding: 3rem;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.map-svg {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+}
+
+.network-point {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.network-point:hover {
+  fill: var(--accent-color);
+  r: 3;
+}
+
+.network-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: center;
+}
+
+.stat-item {
+  background: var(--bg-white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .partners-network {
+    padding: 80px 0;
+  }
+
+  .partners-section {
+    margin-bottom: 4rem;
+  }
+
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .network-map {
+    padding: 2rem 1rem;
+  }
+
+  .network-stats {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+

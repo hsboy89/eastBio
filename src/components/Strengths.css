@@ -1,0 +1,131 @@
+.strengths {
+  background: var(--bg-white);
+  padding: 120px 0;
+}
+
+.strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.strength-card {
+  background: linear-gradient(135deg, rgba(26, 95, 63, 0.05) 0%, rgba(45, 143, 95, 0.05) 100%);
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.strength-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.strength-card:hover::before {
+  transform: scaleX(1);
+}
+
+.strength-card:hover {
+  border-color: var(--accent-color);
+  box-shadow: 0 10px 30px rgba(26, 95, 63, 0.15);
+}
+
+.strength-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+
+.strength-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+.strength-description {
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.strength-stats {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+  padding: 0.75rem 1.5rem;
+  background: white;
+  border-radius: 50px;
+  display: inline-block;
+}
+
+.strengths-visual {
+  max-width: 900px;
+  margin: 0 auto;
+  background: var(--gradient-primary);
+  padding: 4rem;
+  border-radius: 30px;
+  color: white;
+}
+
+.visual-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  text-align: center;
+}
+
+.visual-item {
+  padding: 2rem;
+}
+
+.visual-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+
+.visual-label {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .strengths {
+    padding: 80px 0;
+  }
+
+  .strengths-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .strengths-visual {
+    padding: 3rem 2rem;
+  }
+
+  .visual-content {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .visual-number {
+    font-size: 2.5rem;
+  }
+}
+
