@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useRef } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './CompanyIntro.css'
 
 const CompanyIntro = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
+  const hasAnimatedRef = useRef(false)
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -49,13 +49,10 @@ const CompanyIntro = () => {
           className="intro-content"
           variants={containerVariants}
           initial="hidden"
-          animate={hasAnimated ? "visible" : "hidden"}
-          whileInView={!hasAnimated ? "visible" : undefined}
-          viewport={{ once: true, amount: 0.3 }}
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
           onViewportEnter={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
+            hasAnimatedRef.current = true
           }}
         >
           <motion.div className="intro-card" variants={itemVariants}>

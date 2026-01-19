@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
 const PartnersNetwork = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
   const partners = [
     { id: 1, name: '제약사 A', category: '제약사' },
     { id: 2, name: '제약사 B', category: '제약사' },
@@ -45,14 +43,8 @@ const PartnersNetwork = () => {
         <motion.div
           className="partners-section"
           initial={{ opacity: 0, y: 50 }}
-          animate={hasAnimated ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          whileInView={!hasAnimated ? { opacity: 1, y: 0 } : undefined}
-          viewport={{ once: true, amount: 0.3 }}
-          onViewportEnter={() => {
-            if (!hasAnimated) {
-              setHasAnimated(true)
-            }
-          }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.8 }}
         >
           <h3 className="partners-title">주요 파트너사</h3>
@@ -105,14 +97,7 @@ const PartnersNetwork = () => {
                     r="2"
                     fill="var(--secondary-color)"
                     className="network-point"
-                  >
-                    <motion.animate
-                      attributeName="r"
-                      values="2;3;2"
-                      dur="2s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
+                  />
                   <text
                     x={point.x}
                     y={point.y - 3}
