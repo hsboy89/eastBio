@@ -1,12 +1,10 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './BusinessArea.css'
 
-const BusinessArea = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-  const businessAreas = useMemo(() => [
+// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
+const BUSINESS_AREAS_DATA = [
     {
       id: 1,
       title: '전문의약품 유통',
@@ -58,7 +56,44 @@ const BusinessArea = () => {
       icon: '🏥',
       features: ['전문 유통 서비스', 'A/S 지원', '기술 지원'],
     },
-  ], [])
+  ] as const
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
+const BusinessCard = memo(({ area }: { area: typeof BUSINESS_AREAS_DATA[number] }) => (
+  <motion.div
+    className="business-card"
+    variants={{
+      hidden: { opacity: 0, y: 50 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6 },
+      },
+    }}
+    whileHover={{ y: -10, scale: 1.02 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div className="card-header">
+      <div className="card-icon">{area.icon}</div>
+      <h3 className="card-title">{area.titleFormatted || area.title}</h3>
+    </div>
+    <p className="card-description">{area.description}</p>
+    <ul className="card-features">
+      {area.features.map((feature, index) => (
+        <li key={index}>
+          <span className="feature-check">✓</span>
+          {feature}
+        </li>
+      ))}
+    </ul>
+  </motion.div>
+))
+
+BusinessCard.displayName = 'BusinessCard'
+
+const BusinessArea = () => {
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -70,28 +105,15 @@ const BusinessArea = () => {
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  }
-
   useEffect(() => {
     if (!gridRef.current || hasAnimated) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true)
-            observer.disconnect()
-          }
-        })
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.2, rootMargin: '0px' }
     )
@@ -101,7 +123,7 @@ const BusinessArea = () => {
     return () => {
       observer.disconnect()
     }
-  }, [hasAnimated])
+  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -129,28 +151,8 @@ const BusinessArea = () => {
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
         >
-          {businessAreas.map((area) => (
-            <motion.div
-              key={area.id}
-              className="business-card"
-              variants={itemVariants}
-              whileHover={{ y: -10, scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="card-header">
-                <div className="card-icon">{area.icon}</div>
-                <h3 className="card-title">{area.titleFormatted || area.title}</h3>
-              </div>
-              <p className="card-description">{area.description}</p>
-              <ul className="card-features">
-                {area.features.map((feature, index) => (
-                  <li key={index}>
-                    <span className="feature-check">✓</span>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+          {BUSINESS_AREAS_DATA.map((area) => (
+            <BusinessCard key={area.id} area={area} />
           ))}
         </motion.div>
       </div>

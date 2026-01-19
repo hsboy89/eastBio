@@ -1,19 +1,42 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
+
+// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
+const PARTNERS_DATA = [
+  { id: 1, name: '제약사 A', category: '제약사' },
+  { id: 2, name: '제약사 B', category: '제약사' },
+  { id: 3, name: '제약사 C', category: '제약사' },
+  { id: 4, name: '의료기관 A', category: '의료기관' },
+  { id: 5, name: '의료기관 B', category: '의료기관' },
+  { id: 6, name: '의료기관 C', category: '의료기관' },
+] as const
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
+const PartnerCard = memo(({ partner }: { partner: typeof PARTNERS_DATA[number] }) => (
+  <motion.div
+    className="partner-card"
+    variants={{
+      hidden: { opacity: 0, scale: 0.8 },
+      visible: {
+        opacity: 1,
+        scale: 1,
+        transition: { duration: 0.5 },
+      },
+    }}
+    whileHover={{ y: -5, scale: 1.05 }}
+  >
+    <div className="partner-category">{partner.category}</div>
+    <div className="partner-name">{partner.name}</div>
+  </motion.div>
+))
+
+PartnerCard.displayName = 'PartnerCard'
 
 const PartnersNetwork = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
-  const partners = useMemo(() => [
-    { id: 1, name: '제약사 A', category: '제약사' },
-    { id: 2, name: '제약사 B', category: '제약사' },
-    { id: 3, name: '제약사 C', category: '제약사' },
-    { id: 4, name: '의료기관 A', category: '의료기관' },
-    { id: 5, name: '의료기관 B', category: '의료기관' },
-    { id: 6, name: '의료기관 C', category: '의료기관' },
-  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -21,17 +44,6 @@ const PartnersNetwork = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.5,
       },
     },
   }
@@ -50,12 +62,10 @@ const PartnersNetwork = () => {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true)
-            observer.disconnect()
-          }
-        })
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.2, rootMargin: '0px' }
     )
@@ -65,7 +75,7 @@ const PartnersNetwork = () => {
     return () => {
       observer.disconnect()
     }
-  }, [hasAnimated])
+  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -101,16 +111,8 @@ const PartnersNetwork = () => {
             initial="hidden"
             animate={hasAnimated ? "visible" : "hidden"}
           >
-            {partners.map((partner) => (
-              <motion.div
-                key={partner.id}
-                className="partner-card"
-                variants={itemVariants}
-                whileHover={{ y: -5, scale: 1.05 }}
-              >
-                <div className="partner-category">{partner.category}</div>
-                <div className="partner-name">{partner.name}</div>
-              </motion.div>
+            {PARTNERS_DATA.map((partner) => (
+              <PartnerCard key={partner.id} partner={partner} />
             ))}
           </motion.div>
         </motion.div>

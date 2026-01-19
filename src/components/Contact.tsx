@@ -1,18 +1,43 @@
 import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Contact.css'
+
+// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
+const CONTACT_INFO_DATA = [
+  { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
+  { icon: '📞', label: '전화', value: '02-1234-5678' },
+  { icon: '📠', label: '팩스', value: '02-1234-5679' },
+  { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
+] as const
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
+const ContactInfoItem = memo(({ info }: { info: typeof CONTACT_INFO_DATA[number] }) => (
+  <motion.div
+    className="info-item"
+    variants={{
+      hidden: { opacity: 0, y: 20 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.5 },
+      },
+    }}
+  >
+    <div className="info-icon">{info.icon}</div>
+    <div className="info-content">
+      <div className="info-label">{info.label}</div>
+      <div className="info-value">{info.value}</div>
+    </div>
+  </motion.div>
+))
+
+ContactInfoItem.displayName = 'ContactInfoItem'
 
 const Contact = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
   const gridRef = useRef<HTMLDivElement>(null)
-  const contactInfo = useMemo(() => [
-    { icon: '📍', label: '주소', value: '서울특별시 강남구 테헤란로 123' },
-    { icon: '📞', label: '전화', value: '02-1234-5678' },
-    { icon: '📠', label: '팩스', value: '02-1234-5679' },
-    { icon: '✉️', label: '이메일', value: 'contact@eastbio.co.kr' },
-  ], [])
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -24,28 +49,15 @@ const Contact = () => {
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-      },
-    },
-  }
-
   useEffect(() => {
     if (!gridRef.current || hasAnimated) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true)
-            observer.disconnect()
-          }
-        })
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.2, rootMargin: '0px' }
     )
@@ -55,7 +67,7 @@ const Contact = () => {
     return () => {
       observer.disconnect()
     }
-  }, [hasAnimated])
+  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <>
@@ -97,18 +109,8 @@ const Contact = () => {
                 initial="hidden"
                 animate={hasAnimated ? "visible" : "hidden"}
               >
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={index}
-                    className="info-item"
-                    variants={itemVariants}
-                  >
-                    <div className="info-icon">{info.icon}</div>
-                    <div className="info-content">
-                      <div className="info-label">{info.label}</div>
-                      <div className="info-value">{info.value}</div>
-                    </div>
-                  </motion.div>
+                {CONTACT_INFO_DATA.map((info, index) => (
+                  <ContactInfoItem key={index} info={info} />
                 ))}
               </motion.div>
             </motion.div>

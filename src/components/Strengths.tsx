@@ -1,12 +1,10 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef, useMemo } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './Strengths.css'
 
-const Strengths = () => {
-  const [hasAnimated, setHasAnimated] = useState(false)
-  const gridRef = useRef<HTMLDivElement>(null)
-  const strengths = useMemo(() => [
+// 데이터를 컴포넌트 외부로 이동하여 재생성 방지
+const STRENGTHS_DATA = [
     {
       id: 1,
       title: '콜드체인 시스템',
@@ -55,7 +53,35 @@ const Strengths = () => {
       icon: '✅',
       stats: '100% 품질 검증',
     },
-  ], [])
+  ] as const
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
+const StrengthCard = memo(({ strength, index }: { strength: typeof STRENGTHS_DATA[number], index: number }) => (
+  <motion.div
+    className="strength-card"
+    variants={{
+      hidden: { opacity: 0, x: -30 },
+      visible: {
+        opacity: 1,
+        x: 0,
+        transition: { duration: 0.6 },
+      },
+    }}
+    whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div className="strength-icon">{strength.icon}</div>
+    <h3 className="strength-title">{strength.title}</h3>
+    <p className="strength-description">{strength.description}</p>
+    <div className="strength-stats">{strength.stats}</div>
+  </motion.div>
+))
+
+StrengthCard.displayName = 'StrengthCard'
+
+const Strengths = () => {
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const gridRef = useRef<HTMLDivElement>(null)
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -67,28 +93,15 @@ const Strengths = () => {
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -30 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  }
-
   useEffect(() => {
     if (!gridRef.current || hasAnimated) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true)
-            observer.disconnect()
-          }
-        })
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.2, rootMargin: '0px' }
     )
@@ -98,7 +111,7 @@ const Strengths = () => {
     return () => {
       observer.disconnect()
     }
-  }, [hasAnimated])
+  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -126,19 +139,8 @@ const Strengths = () => {
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
         >
-          {strengths.map((strength, index) => (
-            <motion.div
-              key={strength.id}
-              className="strength-card"
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="strength-icon">{strength.icon}</div>
-              <h3 className="strength-title">{strength.title}</h3>
-              <p className="strength-description">{strength.description}</p>
-              <div className="strength-stats">{strength.stats}</div>
-            </motion.div>
+          {STRENGTHS_DATA.map((strength, index) => (
+            <StrengthCard key={strength.id} strength={strength} index={index} />
           ))}
         </motion.div>
 

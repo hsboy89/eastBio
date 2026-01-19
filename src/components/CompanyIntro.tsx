@@ -1,7 +1,28 @@
 import { motion } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './CompanyIntro.css'
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
+const IntroCard = memo(({ icon, title, text }: { icon: string, title: string, text: string }) => (
+  <motion.div
+    className="intro-card"
+    variants={{
+      hidden: { opacity: 0, y: 30 },
+      visible: {
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6 },
+      },
+    }}
+  >
+    <div className="card-icon">{icon}</div>
+    <h3 className="card-title">{title}</h3>
+    <p className="card-text">{text}</p>
+  </motion.div>
+))
+
+IntroCard.displayName = 'IntroCard'
 
 const CompanyIntro = () => {
   const [hasAnimated, setHasAnimated] = useState(false)
@@ -16,28 +37,15 @@ const CompanyIntro = () => {
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-      },
-    },
-  }
-
   useEffect(() => {
     if (!gridRef.current || hasAnimated) return
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasAnimated) {
-            setHasAnimated(true)
-            observer.disconnect()
-          }
-        })
+        if (entries[0]?.isIntersecting && !hasAnimated) {
+          setHasAnimated(true)
+          observer.disconnect()
+        }
       },
       { threshold: 0.2, rootMargin: '0px' }
     )
@@ -47,7 +55,7 @@ const CompanyIntro = () => {
     return () => {
       observer.disconnect()
     }
-  }, [hasAnimated])
+  }, []) // 빈 배열로 한 번만 실행
 
   return (
     <section 
@@ -75,23 +83,9 @@ const CompanyIntro = () => {
           initial="hidden"
           animate={hasAnimated ? "visible" : "hidden"}
         >
-          <motion.div className="intro-card" variants={itemVariants}>
-            <div className="card-icon">🏢</div>
-            <h3 className="card-title">법인명</h3>
-            <p className="card-text">(주)이스트바이오</p>
-          </motion.div>
-
-          <motion.div className="intro-card" variants={itemVariants}>
-            <div className="card-icon">💼</div>
-            <h3 className="card-title">업태</h3>
-            <p className="card-text">의약품 도매업</p>
-          </motion.div>
-
-          <motion.div className="intro-card" variants={itemVariants}>
-            <div className="card-icon">🎯</div>
-            <h3 className="card-title">핵심 가치</h3>
-            <p className="card-text">신뢰 · 연결 · 혁신</p>
-          </motion.div>
+          <IntroCard icon="🏢" title="법인명" text="(주)이스트바이오" />
+          <IntroCard icon="💼" title="업태" text="의약품 도매업" />
+          <IntroCard icon="🎯" title="핵심 가치" text="신뢰 · 연결 · 혁신" />
         </motion.div>
 
         <motion.div
