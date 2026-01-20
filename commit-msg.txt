@@ -1,5 +1,5 @@
-Remove: Contact 섹션에서 "오시는 길" 제거
+Style: Contact 섹션 크기 축소 및 가운데 정렬
 
-- 오시는 길 지도 섹션 제거
-- 연락처 정보만 표시하도록 수정
-- CSS에서 관련 스타일 제거 및 단일 컬럼 레이아웃으로 변경
+- contact-content max-width 600px로 제한
+- margin: 0 auto로 가운데 정렬
+- padding 3rem에서 2rem으로 축소

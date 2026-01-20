@@ -52,10 +52,40 @@
   z-index: 3;
 }
 
-.partners-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.partners-slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+
+.partners-slider {
+  display: flex;
   gap: 1.5rem;
+  width: fit-content;
+  animation: slide 60s linear infinite;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .partner-card {
@@ -67,11 +97,15 @@
   transition: all 0.3s ease;
   border: 2px solid transparent;
   backdrop-filter: blur(10px);
+  flex-shrink: 0;
+  min-width: 200px;
+  width: 200px;
 }
 
 .partner-card:hover {
   border-color: var(--accent-color);
   box-shadow: 0 8px 25px rgba(26, 95, 63, 0.15);
+  transform: translateY(-5px);
 }
 
 .partner-category {
@@ -155,9 +189,14 @@
     margin-bottom: 4rem;
   }
 
-  .partners-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .partners-slider {
     gap: 1rem;
+  }
+  
+  .partner-card {
+    min-width: 150px;
+    width: 150px;
+    padding: 1.5rem;
   }
 
   .network-map {

@@ -3,19 +3,66 @@ import { memo } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
-// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지 (회사소개 방식 적용)
+// 90개 샘플 파트너 데이터 생성
+const generatePartnerData = () => {
+  const partners: Array<{ id: number; name: string; category: string }> = []
+  
+  // 제약사 30개
+  for (let i = 1; i <= 30; i++) {
+    partners.push({
+      id: i,
+      name: `제약사 ${String.fromCharCode(65 + ((i - 1) % 26))}${i > 26 ? Math.ceil(i / 26) : ''}`,
+      category: '제약사'
+    })
+  }
+  
+  // 의료기관 25개
+  for (let i = 31; i <= 55; i++) {
+    partners.push({
+      id: i,
+      name: `의료기관 ${String.fromCharCode(65 + ((i - 31) % 26))}${i - 30 > 26 ? Math.ceil((i - 30) / 26) : ''}`,
+      category: '의료기관'
+    })
+  }
+  
+  // 병원 20개
+  for (let i = 56; i <= 75; i++) {
+    partners.push({
+      id: i,
+      name: `병원 ${String.fromCharCode(65 + ((i - 56) % 26))}${i - 55 > 26 ? Math.ceil((i - 55) / 26) : ''}`,
+      category: '병원'
+    })
+  }
+  
+  // 유통업체 10개
+  for (let i = 76; i <= 85; i++) {
+    partners.push({
+      id: i,
+      name: `유통업체 ${String.fromCharCode(65 + ((i - 76) % 26))}`,
+      category: '유통업체'
+    })
+  }
+  
+  // 연구소 5개
+  for (let i = 86; i <= 90; i++) {
+    partners.push({
+      id: i,
+      name: `연구소 ${String.fromCharCode(65 + ((i - 86) % 26))}`,
+      category: '연구소'
+    })
+  }
+  
+  return partners
+}
+
+const PARTNERS_DATA = generatePartnerData()
+
+// Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
 const PartnerCard = memo(({ name, category }: { name: string, category: string }) => (
-  <motion.div
-    className="partner-card"
-    initial={{ opacity: 0, scale: 0.8 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    viewport={{ once: true, margin: '0px' }}
-    transition={{ duration: 0.5 }}
-    whileHover={{ y: -5, scale: 1.05 }}
-  >
+  <div className="partner-card">
     <div className="partner-category">{category}</div>
     <div className="partner-name">{name}</div>
-  </motion.div>
+  </div>
 ))
 
 PartnerCard.displayName = 'PartnerCard'
@@ -57,13 +104,17 @@ const PartnersNetwork = () => {
           transition={{ duration: 0.8 }}
         >
           <h3 className="partners-title">주요 파트너사</h3>
-          <div className="partners-grid">
-            <PartnerCard name="제약사 A" category="제약사" />
-            <PartnerCard name="제약사 B" category="제약사" />
-            <PartnerCard name="제약사 C" category="제약사" />
-            <PartnerCard name="의료기관 A" category="의료기관" />
-            <PartnerCard name="의료기관 B" category="의료기관" />
-            <PartnerCard name="의료기관 C" category="의료기관" />
+          <div className="partners-slider-container">
+            <div className="partners-slider">
+              {/* 첫 번째 세트 */}
+              {PARTNERS_DATA.map((partner) => (
+                <PartnerCard key={partner.id} name={partner.name} category={partner.category} />
+              ))}
+              {/* 두 번째 세트 (무한 슬라이드를 위해) */}
+              {PARTNERS_DATA.map((partner) => (
+                <PartnerCard key={`duplicate-${partner.id}`} name={partner.name} category={partner.category} />
+              ))}
+            </div>
           </div>
         </motion.div>
 
