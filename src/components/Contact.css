@@ -38,11 +38,12 @@
   position: relative;
   z-index: 2;
   background: rgba(255, 255, 255, 0.95);
-  padding: 3rem;
+  padding: 2rem;
   border-radius: 20px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(10px);
-  margin-bottom: 4rem;
+  margin: 0 auto 4rem;
+  max-width: 600px;
 }
 
 .info-title {

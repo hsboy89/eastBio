@@ -1,6 +1,5 @@
-Fix: CompanyIntro intro-card 렌더링 문제 수정
+Remove: Contact 섹션에서 "오시는 길" 제거
 
-- IntroCard에 whileInView 직접 적용 (다른 card들과 동일한 방식)
-- variants + animate 방식 제거
-- useEffect + IntersectionObserver 제거
-- intro-content를 일반 div로 변경
+- 오시는 길 지도 섹션 제거
+- 연락처 정보만 표시하도록 수정
+- CSS에서 관련 스타일 제거 및 단일 컬럼 레이아웃으로 변경
