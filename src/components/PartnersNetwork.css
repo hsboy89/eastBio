@@ -70,22 +70,57 @@
     black 95%,
     transparent 100%
   );
+  display: flex;
+  align-items: center;
 }
 
 .partners-slider {
   display: flex;
   gap: 1.5rem;
   width: fit-content;
-  animation: slide 60s linear infinite;
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
-@keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+}
+
+.slider-arrow:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 5px 20px rgba(26, 95, 63, 0.3);
+}
+
+.slider-arrow-left {
+  left: 20px;
+}
+
+.slider-arrow-right {
+  right: 20px;
+}
+
+.slider-arrow:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .partner-card {
@@ -197,6 +232,20 @@
     min-width: 150px;
     width: 150px;
     padding: 1.5rem;
+  }
+
+  .slider-arrow {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5rem;
+  }
+
+  .slider-arrow-left {
+    left: 10px;
+  }
+
+  .slider-arrow-right {
+    right: 10px;
   }
 
   .network-map {

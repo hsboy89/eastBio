@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { memo } from 'react'
+import { memo, useState, useRef, useEffect } from 'react'
 import { imageUrls } from '../lib/supabase'
 import './PartnersNetwork.css'
 
@@ -68,6 +68,13 @@ const PartnerCard = memo(({ name, category }: { name: string, category: string }
 PartnerCard.displayName = 'PartnerCard'
 
 const PartnersNetwork = () => {
+  const [isPaused, setIsPaused] = useState(false)
+  const [currentTranslate, setCurrentTranslate] = useState(0)
+  const sliderRef = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<number>()
+  const cardWidth = 200
+  const cardGap = 24
+  
   const networkPoints = [
     { id: 1, city: '서울', x: 50, y: 30 },
     { id: 2, city: '부산', x: 75, y: 80 },
@@ -76,6 +83,42 @@ const PartnersNetwork = () => {
     { id: 5, city: '광주', x: 40, y: 70 },
     { id: 6, city: '대전', x: 50, y: 50 },
   ]
+
+  // 자동 슬라이드 애니메이션
+  useEffect(() => {
+    if (isPaused) return
+
+    const animate = () => {
+      setCurrentTranslate((prev) => {
+        const maxTranslate = -((PARTNERS_DATA.length * (cardWidth + cardGap)) / 2)
+        const newTranslate = prev - 0.5 // 느린 속도
+        return newTranslate <= maxTranslate ? 0 : newTranslate
+      })
+      animationRef.current = requestAnimationFrame(animate)
+    }
+
+    animationRef.current = requestAnimationFrame(animate)
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
+    }
+  }, [isPaused])
+
+  const handlePrev = () => {
+    setCurrentTranslate((prev) => {
+      const newTranslate = prev + (cardWidth + cardGap) * 3 // 3개 카드씩 이동
+      return newTranslate > 0 ? 0 : newTranslate
+    })
+  }
+
+  const handleNext = () => {
+    setCurrentTranslate((prev) => {
+      const maxTranslate = -((PARTNERS_DATA.length * (cardWidth + cardGap)) / 2)
+      const newTranslate = prev - (cardWidth + cardGap) * 3 // 3개 카드씩 이동
+      return newTranslate < maxTranslate ? maxTranslate : newTranslate
+    })
+  }
 
   return (
     <section 
@@ -104,8 +147,23 @@ const PartnersNetwork = () => {
           transition={{ duration: 0.8 }}
         >
           <h3 className="partners-title">주요 파트너사</h3>
-          <div className="partners-slider-container">
-            <div className="partners-slider">
+          <div 
+            className="partners-slider-container"
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            <button 
+              className="slider-arrow slider-arrow-left"
+              onClick={handlePrev}
+              aria-label="이전"
+            >
+              ‹
+            </button>
+            <div 
+              ref={sliderRef}
+              className="partners-slider"
+              style={{ transform: `translateX(${currentTranslate}px)` }}
+            >
               {/* 첫 번째 세트 */}
               {PARTNERS_DATA.map((partner) => (
                 <PartnerCard key={partner.id} name={partner.name} category={partner.category} />
@@ -115,6 +173,13 @@ const PartnersNetwork = () => {
                 <PartnerCard key={`duplicate-${partner.id}`} name={partner.name} category={partner.category} />
               ))}
             </div>
+            <button 
+              className="slider-arrow slider-arrow-right"
+              onClick={handleNext}
+              aria-label="다음"
+            >
+              ›
+            </button>
           </div>
         </motion.div>
 
