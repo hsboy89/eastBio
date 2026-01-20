@@ -105,6 +105,9 @@
   color: var(--secondary-color);
   font-weight: 700;
   font-size: 1.2rem;
+  min-width: 1.2rem;
+  text-align: center;
+  display: inline-block;
 }
 
 @media (max-width: 768px) {
