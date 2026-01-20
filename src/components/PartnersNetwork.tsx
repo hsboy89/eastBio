@@ -91,7 +91,7 @@ const PartnersNetwork = () => {
     const animate = () => {
       setCurrentTranslate((prev) => {
         const maxTranslate = -((PARTNERS_DATA.length * (cardWidth + cardGap)) / 2)
-        const newTranslate = prev - 0.5 // 느린 속도
+        const newTranslate = prev - 0.8 // 약간 빠른 속도
         return newTranslate <= maxTranslate ? 0 : newTranslate
       })
       animationRef.current = requestAnimationFrame(animate)
