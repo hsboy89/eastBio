@@ -5,17 +5,11 @@ import './CompanyIntro.css'
 
 // Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지
 const IntroCard = memo(({ icon, title, text }: { icon: string, title: string, text: string }) => (
-  <motion.div
-    className="intro-card"
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '0px' }}
-    transition={{ duration: 0.6 }}
-  >
+  <div className="intro-card">
     <div className="card-icon">{icon}</div>
     <h3 className="card-title">{title}</h3>
     <p className="card-text">{text}</p>
-  </motion.div>
+  </div>
 ))
 
 IntroCard.displayName = 'IntroCard'
@@ -23,8 +17,8 @@ IntroCard.displayName = 'IntroCard'
 const CompanyIntro = () => {
 
   return (
-    <section 
-      id="company" 
+    <section
+      id="company"
       className="company-intro"
       style={{ '--bg-image': `url(${imageUrls.company})` } as React.CSSProperties}
     >
