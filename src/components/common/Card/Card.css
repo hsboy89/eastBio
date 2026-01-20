@@ -1,0 +1,126 @@
+/* ===========================================
+   Common Component: Card
+   재사용 가능한 카드 스타일
+   =========================================== */
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: var(--space-10);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 5px 20px var(--shadow-dark);
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+    backdrop-filter: blur(10px);
+}
+
+.card-hoverable:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 40px var(--shadow-primary);
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 3.5rem;
+    line-height: 1;
+    margin-bottom: var(--space-6);
+}
+
+.card-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--primary-color);
+    margin-bottom: var(--space-4);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-description {
+    font-size: var(--text-lg);
+    color: var(--text-dark);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-8);
+    font-weight: var(--font-medium);
+}
+
+.card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-base);
+    color: var(--text-dark);
+    margin-bottom: var(--space-3);
+    padding: var(--space-2) 0;
+    font-weight: var(--font-medium);
+}
+
+.feature-check {
+    color: var(--secondary-color);
+    font-weight: var(--font-bold);
+    font-size: var(--text-xl);
+    min-width: 1.2rem;
+    text-align: center;
+}
+
+.card-stats {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    color: var(--secondary-color);
+    padding: var(--space-3) var(--space-6);
+    background: var(--bg-white);
+    border-radius: var(--radius-full);
+    display: inline-block;
+}
+
+/* Variant: Intro */
+.card-intro {
+    text-align: center;
+}
+
+/* Variant: Strength */
+.card-strength {
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-strength::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+    transform: scaleX(0);
+    transition: transform var(--transition-normal);
+}
+
+.card-strength:hover::before {
+    transform: scaleX(1);
+}
+
+/* Variant: Info */
+.card-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-6);
+}
+
+.card-info .card-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gradient-primary);
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 2rem;
+    margin-bottom: 0;
+}

@@ -1,0 +1,55 @@
+/* ===========================================
+   Base Styles: Reset
+   CSS 리셋 및 박스 사이징 설정
+   =========================================== */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: var(--text-dark);
+    line-height: var(--leading-normal);
+    overflow-x: hidden;
+}
+
+/* 기본 이미지 설정 */
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 폼 요소 폰트 상속 */
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+/* 앵커 기본 스타일 */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 리스트 기본 스타일 */
+ul,
+ol {
+    list-style: none;
+}
