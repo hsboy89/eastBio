@@ -19,11 +19,8 @@ const BusinessCard = memo(({
 }) => (
   <motion.div
     className="business-card"
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '0px' }}
-    transition={{ duration: 0.6 }}
     whileHover={{ y: -10, scale: 1.02 }}
+    transition={{ duration: 0.3 }}
   >
     <div className="card-header">
       <div className="card-icon">{icon}</div>

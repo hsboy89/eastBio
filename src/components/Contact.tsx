@@ -6,19 +6,13 @@ import './Contact.css'
 
 // Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지 (회사소개 방식 적용)
 const ContactInfoItem = memo(({ icon, label, value }: { icon: string, label: string, value: string }) => (
-  <motion.div
-    className="info-item"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: '0px' }}
-    transition={{ duration: 0.5 }}
-  >
+  <div className="info-item">
     <div className="info-icon">{icon}</div>
     <div className="info-content">
       <div className="info-label">{label}</div>
       <div className="info-value">{value}</div>
     </div>
-  </motion.div>
+  </div>
 ))
 
 ContactInfoItem.displayName = 'ContactInfoItem'
@@ -31,8 +25,8 @@ const Contact = () => {
         <meta name="contact" content="(주)이스트바이오 연락처 정보" />
       </Helmet>
 
-      <section 
-        id="contact" 
+      <section
+        id="contact"
         className="contact"
         style={{ '--bg-image': `url(${imageUrls.contact})` } as React.CSSProperties}
       >

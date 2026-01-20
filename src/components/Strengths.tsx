@@ -4,13 +4,13 @@ import { imageUrls } from '../lib/supabase'
 import './Strengths.css'
 
 // Card 컴포넌트를 memo로 감싸서 불필요한 리렌더링 방지 (회사소개 방식 적용)
-const StrengthCard = memo(({ 
-  icon, 
-  title, 
-  description, 
-  stats, 
-  index 
-}: { 
+const StrengthCard = memo(({
+  icon,
+  title,
+  description,
+  stats,
+  index
+}: {
   icon: string
   title: string
   description: React.ReactNode
@@ -19,11 +19,8 @@ const StrengthCard = memo(({
 }) => (
   <motion.div
     className="strength-card"
-    initial={{ opacity: 0, x: -30 }}
-    whileInView={{ opacity: 1, x: 0 }}
-    viewport={{ once: true, margin: '0px' }}
-    transition={{ duration: 0.6 }}
     whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
+    transition={{ duration: 0.3 }}
   >
     <div className="strength-icon">{icon}</div>
     <h3 className="strength-title">{title}</h3>
@@ -37,8 +34,8 @@ StrengthCard.displayName = 'StrengthCard'
 const Strengths = () => {
 
   return (
-    <section 
-      id="strengths" 
+    <section
+      id="strengths"
       className="strengths"
       style={{ '--bg-image': `url(${imageUrls.strengths})` } as React.CSSProperties}
     >
