@@ -41,3 +41,4 @@ foreach ($hash in $commitMessages.Keys) {
 Write-Host "`n모든 커밋 메시지 파일이 생성되었습니다." -ForegroundColor Green
 Write-Host "다음 단계: git rebase -i를 사용하여 각 커밋을 수정하세요." -ForegroundColor Cyan
 
+

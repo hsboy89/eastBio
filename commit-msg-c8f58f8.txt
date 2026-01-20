@@ -1,2 +1,3 @@
 Fix: TypeScript JSX 설정 추가 및 Lenis smoothTouch 옵션 제거
 
+

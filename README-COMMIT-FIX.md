@@ -41,3 +41,4 @@ git commit --amend -m "올바른 메시지"
 - 이미 push된 커밋을 수정하면 `git push --force`가 필요합니다
 - 다른 사람과 협업 중이라면 force push 전에 반드시 협의하세요
 
+

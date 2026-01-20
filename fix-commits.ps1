@@ -8,3 +8,4 @@ foreach ($commit in $commits) {
     Write-Host "수정 중: $($commit.hash) - $($commit.msg)"
 }
 
+

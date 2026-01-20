@@ -1,2 +1,3 @@
 Fix: TypeScript 오류 및 deprecated 패키지 제거 - 빌드 속도를 위해 tsc 검사 제거, @studio-freight/lenis 제거
 
+

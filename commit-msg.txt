@@ -1,8 +1,6 @@
-Fix: 회사소개 상단 방식으로 card 재조회 완전 차단
+Fix: CompanyIntro intro-card 렌더링 문제 수정
 
+- IntroCard에 whileInView 직접 적용 (다른 card들과 동일한 방식)
 - variants + animate 방식 제거
-- 각 card에 직접 whileInView 적용 (회사소개 상단과 동일한 방식)
-- viewport={{ once: true }}로 한 번만 실행 보장
 - useEffect + IntersectionObserver 제거
-- 모든 grid를 일반 div로 변경 (motion.div 제거)
-- BusinessArea, Strengths, PartnersNetwork, Contact에 적용
+- intro-content를 일반 div로 변경

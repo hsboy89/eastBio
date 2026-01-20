@@ -20,3 +20,4 @@ $commits = @(
 
 Write-Host "총 $($commits.Count)개의 커밋 메시지를 수정합니다."
 
+
