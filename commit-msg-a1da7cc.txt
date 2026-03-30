@@ -1,0 +1,1 @@
+Remove: 사용하지 않는 Galaxy 컴포넌트 삭제

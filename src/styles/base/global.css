@@ -1,0 +1,104 @@
+/* ===========================================
+   Base Styles: Global
+   전역 레이아웃 및 컴포넌트 스타일
+   =========================================== */
+
+/* 앱 루트 */
+#root {
+    width: 100%;
+    min-height: 100vh;
+}
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    transform: translateZ(0);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-medium);
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* 섹션 공통 스타일 */
+section {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    padding: var(--section-padding-y) 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateZ(0);
+    will-change: scroll-position;
+}
+
+.section-container {
+    position: relative;
+    z-index: 2;
+    max-width: var(--container-xl);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 var(--section-padding-x);
+}
+
+.section-title {
+    font-size: var(--text-5xl);
+    font-weight: var(--font-bold);
+    color: #ffffff;
+    margin-bottom: var(--space-4);
+    text-align: center;
+    letter-spacing: -0.03em;
+    position: relative;
+    z-index: 3;
+}
+
+.section-subtitle {
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.55);
+    text-align: center;
+    margin-bottom: var(--space-16);
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 3;
+    font-weight: var(--font-normal);
+    line-height: var(--leading-relaxed);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    section {
+        padding: var(--section-padding-y-mobile) 0;
+    }
+
+    .section-container {
+        padding: 0 var(--section-padding-x-mobile);
+    }
+
+    .section-title {
+        font-size: var(--text-3xl);
+    }
+
+    .section-subtitle {
+        font-size: var(--text-base);
+        margin-bottom: var(--space-8);
+    }
+}

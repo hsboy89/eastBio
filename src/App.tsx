@@ -1,43 +1,29 @@
-import { useEffect } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
-import Lenis from 'lenis'
-import Hero from './components/Hero'
-import CompanyIntro from './components/CompanyIntro'
-import BusinessArea from './components/BusinessArea'
-import Strengths from './components/Strengths'
-import PartnersNetwork from './components/PartnersNetwork'
-import Contact from './components/Contact'
-import Navigation from './components/Navigation'
-import './App.css'
+import { imageUrls } from './lib/supabase'
+import { Navigation } from './components/layout'
+import {
+  Hero,
+  CompanyIntro,
+  BusinessArea,
+  Strengths,
+  PartnersNetwork,
+  Contact
+} from './components/sections'
+import { useSmoothScroll, useImagePreload } from './hooks'
 
 function App() {
-  useEffect(() => {
-    // Lenis 스무스 스크롤 초기화 (성능 최적화)
-    const lenis = new Lenis({
-      duration: 0.8,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 0.8,
-      touchMultiplier: 1.5,
-      infinite: false,
-    })
+  // 스무스 스크롤 적용
+  useSmoothScroll()
 
-    let rafId: number
-    function raf(time: number) {
-      lenis.raf(time)
-      rafId = requestAnimationFrame(raf)
-    }
-    rafId = requestAnimationFrame(raf)
-
-    return () => {
-      if (rafId) {
-        cancelAnimationFrame(rafId)
-      }
-      lenis.destroy()
-    }
-  }, [])
+  // 이미지 프리로딩
+  useImagePreload([
+    imageUrls.hero,
+    imageUrls.company,
+    imageUrls.business,
+    imageUrls.strengths,
+    imageUrls.partners,
+    imageUrls.contact,
+  ])
 
   return (
     <HelmetProvider>
@@ -55,4 +41,3 @@ function App() {
 }
 
 export default App
-

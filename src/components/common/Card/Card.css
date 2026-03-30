@@ -1,0 +1,122 @@
+/* ===========================================
+   Common Component: Card
+   재사용 가능한 카드 스타일
+   =========================================== */
+
+.card {
+    background: var(--bg-white);
+    padding: var(--space-10);
+    border: 1px solid var(--border-light);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-hoverable:hover {
+    border-color: var(--border-medium);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.card-icon {
+    font-size: 2rem;
+    line-height: 1;
+    margin-bottom: var(--space-5);
+    opacity: 0.85;
+}
+
+.card-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: var(--text-dark);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.01em;
+}
+
+.card-description {
+    font-size: var(--text-base);
+    color: var(--text-light);
+    line-height: var(--leading-relaxed);
+    margin-bottom: var(--space-6);
+    font-weight: var(--font-normal);
+}
+
+.card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-features li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    margin-bottom: var(--space-2);
+    padding: var(--space-1) 0;
+    font-weight: var(--font-normal);
+}
+
+.feature-check {
+    color: var(--primary-color);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    min-width: 1rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.card-stats {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--primary-color);
+    display: inline-block;
+    letter-spacing: 0.01em;
+}
+
+/* Variant: Intro */
+.card-intro {
+    text-align: center;
+}
+
+/* Variant: Strength */
+.card-strength {
+    text-align: left;
+    position: relative;
+}
+
+.card-strength::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-normal);
+}
+
+.card-strength:hover::before {
+    transform: scaleX(1);
+}
+
+/* Variant: Info */
+.card-info {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    background: var(--bg-white);
+}
+
+.card-info .card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    flex-shrink: 0;
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}

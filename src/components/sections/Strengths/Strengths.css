@@ -1,0 +1,173 @@
+.strengths {
+  position: relative;
+  background: #0a0a0a;
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+.strengths::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--bg-image, url('/4.png'));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  opacity: 0.18;
+}
+
+.strengths::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.5) 0%,
+    rgba(10, 10, 10, 0.75) 100%
+  );
+  z-index: 1;
+}
+
+.strengths-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 5rem;
+}
+
+.strength-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2.5rem 2rem;
+  text-align: left;
+  transition: background 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.strength-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #6ee7b7;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.strength-card:hover::before {
+  transform: scaleX(1);
+}
+
+.strength-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.strength-icon {
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.strength-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.strength-description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+  font-weight: 400;
+}
+
+.strength-stats {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6ee7b7;
+  letter-spacing: 0.03em;
+  display: inline-block;
+}
+
+/* Stats visual */
+.strengths-visual {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 4rem;
+}
+
+.visual-content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.visual-item {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.visual-number {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #6ee7b7;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.visual-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .strengths {
+    padding: 80px 0;
+  }
+
+  .strengths-grid {
+    grid-template-columns: 1fr;
+    margin-bottom: 3rem;
+  }
+
+  .strength-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .visual-content {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-item {
+    padding: 2rem;
+  }
+
+  .visual-number {
+    font-size: 2.25rem;
+  }
+}
