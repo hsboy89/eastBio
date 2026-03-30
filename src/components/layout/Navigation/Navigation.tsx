@@ -1,112 +1,138 @@
 import { useState, useEffect, useRef } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import './Navigation.css'
 
+const navData = [
+    {
+        id: 'company',
+        label: '회사소개',
+        sub: ['회사소개', '대표인사말', '핵심가치', '연혁'],
+    },
+    {
+        id: 'business',
+        label: '사업영역',
+        sub: ['전문의약품 유통', '일반의약품 유통', '의료기기 유통'],
+    },
+    {
+        id: 'strengths',
+        label: '핵심역량',
+        sub: ['콜드체인 시스템', '신속배송 네트워크', '데이터 기반 물류', '품질보증 시스템'],
+    },
+    {
+        id: 'partners',
+        label: '파트너 & 네트워크',
+        sub: ['협력 제약사', '의료기관 네트워크', '전국 유통망'],
+    },
+    {
+        id: 'contact',
+        label: '연락처',
+        sub: ['연락처 정보', '오시는 길'],
+    },
+]
+
 const Navigation = () => {
-    const hasAnimatedRef = useRef(false)
-    const [isScrolled, setIsScrolled] = useState(false)
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1,
-            },
-        },
-    }
-
-    const itemVariants = {
-        hidden: { opacity: 0, y: -10 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.3,
-            },
-        },
-    }
+    const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50)
+        return () => {
+            if (closeTimer.current) clearTimeout(closeTimer.current)
         }
-        window.addEventListener('scroll', handleScroll)
-        return () => window.removeEventListener('scroll', handleScroll)
     }, [])
 
-    useEffect(() => {
-        // Navigation은 페이지 로드 시 바로 보이므로 한 번만 실행
-        if (!hasAnimatedRef.current) {
-            hasAnimatedRef.current = true
-        }
-    }, [])
+    const handleMouseEnter = (id: string) => {
+        if (closeTimer.current) clearTimeout(closeTimer.current)
+        setActiveDropdown(id)
+    }
+
+    const handleMouseLeave = () => {
+        closeTimer.current = setTimeout(() => setActiveDropdown(null), 120)
+    }
 
     const scrollToSection = (sectionId: string) => {
         const element = document.getElementById(sectionId)
         if (element) {
             element.scrollIntoView({ behavior: 'smooth' })
+            setActiveDropdown(null)
             setIsMobileMenuOpen(false)
         }
     }
 
-    const navItems = [
-        { id: 'hero', label: '홈' },
-        { id: 'company', label: '회사소개' },
-        { id: 'business', label: '사업영역' },
-        { id: 'strengths', label: '핵심역량' },
-        { id: 'partners', label: '파트너' },
-        { id: 'contact', label: '연락처' },
-    ]
-
     return (
-        <motion.nav
-            className={`navigation ${isScrolled ? 'scrolled' : ''}`}
-            initial={{ y: -100 }}
-            animate={{ y: 0 }}
-            transition={{ duration: 0.6 }}
-        >
-            <div className="nav-container">
-                <motion.div
-                    className="logo"
-                    onClick={() => scrollToSection('hero')}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                >
-                    <span className="logo-text">(주)이스트바이오</span>
-                </motion.div>
+        <nav className="navigation">
+            {/* Main bar */}
+            <div className="nav-bar">
+                <div className="nav-container">
+                    <div className="logo" onClick={() => scrollToSection('hero')}>
+                        <span className="logo-text">(주)이스트바이오</span>
+                    </div>
 
-                <motion.ul
-                    className="nav-menu"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                >
-                    {navItems.map((item) => (
-                        <motion.li key={item.id} variants={itemVariants}>
-                            <motion.button
-                                onClick={() => scrollToSection(item.id)}
-                                whileHover={{ y: -2 }}
-                                whileTap={{ y: 0 }}
+                    <ul className="nav-menu">
+                        {navData.map((item) => (
+                            <li
+                                key={item.id}
+                                className={`nav-item ${activeDropdown === item.id ? 'active' : ''}`}
+                                onMouseEnter={() => handleMouseEnter(item.id)}
+                                onMouseLeave={handleMouseLeave}
                             >
-                                {item.label}
-                            </motion.button>
-                        </motion.li>
-                    ))}
-                </motion.ul>
+                                <button onClick={() => scrollToSection(item.id)}>
+                                    {item.label}
+                                </button>
+                            </li>
+                        ))}
+                    </ul>
 
-                <button
-                    className="mobile-menu-toggle"
-                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="메뉴 토글"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+                    <button
+                        className="mobile-menu-toggle"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        aria-label="메뉴 토글"
+                    >
+                        <span className={isMobileMenuOpen ? 'open' : ''}></span>
+                        <span className={isMobileMenuOpen ? 'open' : ''}></span>
+                        <span className={isMobileMenuOpen ? 'open' : ''}></span>
+                    </button>
+                </div>
             </div>
 
+            {/* Mega dropdown */}
+            <AnimatePresence>
+                {activeDropdown && (
+                    <motion.div
+                        className="mega-dropdown"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -8 }}
+                        transition={{ duration: 0.18 }}
+                        onMouseEnter={() => {
+                            if (closeTimer.current) clearTimeout(closeTimer.current)
+                        }}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        <div className="mega-dropdown-inner">
+                            {navData.map((item) => (
+                                <div
+                                    key={item.id}
+                                    className={`mega-col ${activeDropdown === item.id ? 'mega-col--active' : ''}`}
+                                >
+                                    <p className="mega-col-title">{item.label}</p>
+                                    {item.sub.map((sub) => (
+                                        <button
+                                            key={sub}
+                                            className="mega-col-link"
+                                            onClick={() => scrollToSection(item.id)}
+                                        >
+                                            {sub}
+                                        </button>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Mobile menu */}
             <AnimatePresence>
                 {isMobileMenuOpen && (
                     <motion.div
@@ -115,11 +141,11 @@ const Navigation = () => {
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
                     >
-                        {navItems.map((item) => (
+                        {navData.map((item) => (
                             <button
                                 key={item.id}
-                                onClick={() => scrollToSection(item.id)}
                                 className="mobile-menu-item"
+                                onClick={() => scrollToSection(item.id)}
                             >
                                 {item.label}
                             </button>
@@ -127,7 +153,7 @@ const Navigation = () => {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </motion.nav>
+        </nav>
     )
 }
 
