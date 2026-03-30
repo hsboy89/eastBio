@@ -9,18 +9,16 @@ const StrengthCard = memo(({
     title,
     description,
     stats,
-    index
 }: {
     icon: string
     title: string
     description: React.ReactNode
     stats: string
-    index: number
 }) => (
     <motion.div
         className="strength-card"
-        whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 1 : -1 }}
-        transition={{ duration: 0.3 }}
+        whileHover={{ scale: 1.0 }}
+        transition={{ duration: 0.2 }}
     >
         <div className="strength-icon">{icon}</div>
         <h3 className="strength-title">{title}</h3>
@@ -61,7 +59,7 @@ const Strengths = () => {
                             정밀한 온도 관리 시스템을 운영합니다.
                         </>}
                         stats="±2°C 정밀 관리"
-                        index={0}
+                
                     />
                     <StrengthCard
                         icon="🚚"
@@ -71,7 +69,7 @@ const Strengths = () => {
                             빠르고 안정적인 배송 서비스를 제공합니다.
                         </>}
                         stats="24시간 내 배송"
-                        index={1}
+                
                     />
                     <StrengthCard
                         icon="📊"
@@ -81,7 +79,7 @@ const Strengths = () => {
                             물류 프로세스를 최적화합니다.
                         </>}
                         stats="실시간 모니터링"
-                        index={2}
+                
                     />
                     <StrengthCard
                         icon="✅"
@@ -91,7 +89,7 @@ const Strengths = () => {
                             안전한 의약품을 공급합니다.
                         </>}
                         stats="100% 품질 검증"
-                        index={3}
+                
                     />
                 </div>
 

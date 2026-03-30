@@ -1,6 +1,6 @@
 .strengths {
   position: relative;
-  background: var(--bg-white);
+  background: #0a0a0a;
   padding: 120px 0;
   overflow: hidden;
 }
@@ -17,6 +17,7 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
+  opacity: 0.18;
 }
 
 .strengths::after {
@@ -27,9 +28,9 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3) 0%,
-    rgba(255, 255, 255, 0.4) 100%
+    to bottom,
+    rgba(10, 10, 10, 0.5) 0%,
+    rgba(10, 10, 10, 0.75) 100%
   );
   z-index: 1;
 }
@@ -38,22 +39,20 @@
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   margin-bottom: 5rem;
 }
 
 .strength-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2.5rem;
-  border-radius: 20px;
-  text-align: center;
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2.5rem 2rem;
+  text-align: left;
+  transition: background 0.2s ease;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
 }
 
 .strength-card::before {
@@ -62,10 +61,11 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 4px;
-  background: var(--gradient-primary);
+  height: 1px;
+  background: #6ee7b7;
   transform: scaleX(0);
-  transition: transform 0.3s ease;
+  transform-origin: left;
+  transition: transform 0.35s ease;
 }
 
 .strength-card:hover::before {
@@ -73,74 +73,76 @@
 }
 
 .strength-card:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 10px 30px rgba(26, 95, 63, 0.15);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .strength-icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
   line-height: 1;
+  opacity: 0.75;
 }
 
 .strength-title {
-  font-size: 1.5rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--primary-color);
-  margin-bottom: 1rem;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
 }
 
 .strength-description {
-  font-size: 1rem;
-  color: var(--text-dark);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
   line-height: 1.7;
-  margin-bottom: 1.5rem;
-  font-weight: 500;
+  margin-bottom: 1.25rem;
+  font-weight: 400;
 }
 
 .strength-stats {
-  font-size: 1.1rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--secondary-color);
-  padding: 0.75rem 1.5rem;
-  background: white;
-  border-radius: 50px;
+  color: #6ee7b7;
+  letter-spacing: 0.03em;
   display: inline-block;
 }
 
+/* Stats visual */
 .strengths-visual {
   position: relative;
   z-index: 2;
-  max-width: 900px;
-  margin: 0 auto;
-  background: var(--gradient-primary);
-  padding: 4rem;
-  border-radius: 30px;
-  color: white;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding-top: 4rem;
 }
 
 .visual-content {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  text-align: center;
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .visual-item {
-  padding: 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 3rem 2rem;
+  text-align: center;
 }
 
 .visual-number {
-  font-size: 3.5rem;
+  font-size: 3rem;
   font-weight: 800;
+  color: #6ee7b7;
   margin-bottom: 0.5rem;
   line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .visual-label {
-  font-size: 1.2rem;
-  opacity: 0.9;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
 
 @media (max-width: 768px) {
@@ -150,21 +152,22 @@
 
   .strengths-grid {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
     margin-bottom: 3rem;
   }
 
-  .strengths-visual {
-    padding: 3rem 2rem;
+  .strength-card {
+    padding: 2rem 1.5rem;
   }
 
   .visual-content {
     grid-template-columns: 1fr;
-    gap: 2rem;
+  }
+
+  .visual-item {
+    padding: 2rem;
   }
 
   .visual-number {
-    font-size: 2.5rem;
+    font-size: 2.25rem;
   }
 }
-

@@ -2,40 +2,56 @@ import { motion } from 'framer-motion'
 import { Helmet } from 'react-helmet-async'
 import { useEffect, useState } from 'react'
 import { imageUrls } from '../../../lib/supabase'
+import OrbitImages from '../../common/OrbitImages/OrbitImages'
 import './Hero.css'
+
+const categories = [
+    { icon: '🏢', label: '회사 소개',       target: 'company'   },
+    { icon: '💊', label: '사업 영역',       target: 'business'  },
+    { icon: '⚡', label: '핵심 역량',       target: 'strengths' },
+    { icon: '🤝', label: '파트너 네트워크', target: 'partners'  },
+    { icon: '📞', label: '연락처',          target: 'contact'   },
+]
+
+const OrbitCategoryItem = ({ icon, label, target }: { icon: string; label: string; target: string }) => {
+    const handleClick = () => {
+        const el = document.getElementById(target)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+    }
+    return (
+        <div className="orbit-cat-item" onClick={handleClick}>
+            <div className="orbit-cat-circle">
+                <span className="orbit-cat-icon">{icon}</span>
+            </div>
+            <span className="orbit-cat-label">{label}</span>
+        </div>
+    )
+}
 
 const Hero = () => {
     const [imageLoaded, setImageLoaded] = useState(false)
 
     useEffect(() => {
-        // 이미지가 이미 캐시되어 있을 수 있으므로 먼저 확인
         const img = new Image()
-
-        // 이미지가 이미 로드되어 있는지 확인
         if (img.complete || img.naturalWidth > 0) {
             setImageLoaded(true)
             return
         }
-
-        // 이미지 프리로딩 (우선순위 높음)
         img.src = imageUrls.hero
-        img.loading = 'eager' // 즉시 로드
-        img.fetchPriority = 'high' // 높은 우선순위
-
-        img.onload = () => {
-            setImageLoaded(true)
-        }
-        img.onerror = () => {
-            setImageLoaded(true) // 에러가 나도 계속 진행
-        }
+        img.loading = 'eager'
+        img.fetchPriority = 'high'
+        img.onload = () => setImageLoaded(true)
+        img.onerror = () => setImageLoaded(true)
     }, [])
 
     const scrollToNext = () => {
         const element = document.getElementById('company')
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth' })
-        }
+        if (element) element.scrollIntoView({ behavior: 'smooth' })
     }
+
+    const customOrbitItems = categories.map((cat) => (
+        <OrbitCategoryItem key={cat.target} icon={cat.icon} label={cat.label} target={cat.target} />
+    ))
 
     return (
         <>
@@ -54,11 +70,10 @@ const Hero = () => {
                         className={`hero-background-image ${imageLoaded ? 'loaded' : 'loading'}`}
                         style={{ backgroundImage: imageLoaded ? `url(${imageUrls.hero})` : 'none' }}
                     ></div>
-                    {!imageLoaded && (
-                        <div className="hero-background-placeholder"></div>
-                    )}
+                    {!imageLoaded && <div className="hero-background-placeholder"></div>}
                     <div className="hero-background-overlay"></div>
                 </div>
+
                 <div className="hero-content">
                     <motion.div
                         className="hero-text"
@@ -95,8 +110,8 @@ const Hero = () => {
                             <motion.button
                                 className="btn-primary"
                                 onClick={scrollToNext}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                             >
                                 더 알아보기
                             </motion.button>
@@ -106,12 +121,37 @@ const Hero = () => {
                                     const element = document.getElementById('contact')
                                     if (element) element.scrollIntoView({ behavior: 'smooth' })
                                 }}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                             >
                                 문의하기
                             </motion.button>
                         </motion.div>
+                    </motion.div>
+
+                    <motion.div
+                        className="hero-orbit-wrapper"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 1.2, delay: 0.6 }}
+                    >
+                        <OrbitImages
+                            customItems={customOrbitItems}
+                            shape="ellipse"
+                            radiusX={340}
+                            radiusY={90}
+                            rotation={-8}
+                            duration={28}
+                            itemSize={90}
+                            responsive={true}
+                            baseWidth={900}
+                            direction="normal"
+                            fill
+                            showPath
+                            pathColor="rgba(110,231,183,0.12)"
+                            pathWidth={1}
+                            paused={false}
+                        />
                     </motion.div>
                 </div>
 

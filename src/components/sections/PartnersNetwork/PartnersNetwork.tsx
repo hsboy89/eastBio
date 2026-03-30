@@ -196,8 +196,8 @@ const PartnersNetwork = () => {
                             {/* 한국 지도 형태의 간단한 표현 */}
                             <path
                                 d="M 20 30 L 50 20 L 80 30 L 85 50 L 80 70 L 50 80 L 20 70 L 15 50 Z"
-                                fill="rgba(26, 95, 63, 0.1)"
-                                stroke="var(--primary-color)"
+                                fill="rgba(110, 231, 183, 0.05)"
+                                stroke="rgba(110, 231, 183, 0.3)"
                                 strokeWidth="0.5"
                             />
                             {networkPoints.map((point, index) => (
@@ -212,16 +212,16 @@ const PartnersNetwork = () => {
                                         cx={point.x}
                                         cy={point.y}
                                         r="2"
-                                        fill="var(--secondary-color)"
+                                        fill="#6ee7b7"
                                         className="network-point"
                                     />
                                     <text
                                         x={point.x}
                                         y={point.y - 3}
                                         fontSize="2"
-                                        fill="var(--primary-color)"
+                                        fill="rgba(255,255,255,0.7)"
                                         textAnchor="middle"
-                                        fontWeight="600"
+                                        fontWeight="500"
                                     >
                                         {point.city}
                                     </text>

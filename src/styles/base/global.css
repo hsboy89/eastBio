@@ -20,20 +20,20 @@
 
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 5px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-light);
+    background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--secondary-color);
-    border-radius: var(--radius-sm);
+    background: var(--border-medium);
+    border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
+    background: var(--text-muted);
 }
 
 /* 섹션 공통 스타일 */
@@ -61,26 +61,26 @@ section {
 .section-title {
     font-size: var(--text-5xl);
     font-weight: var(--font-bold);
-    color: var(--primary-color);
+    color: #ffffff;
     margin-bottom: var(--space-4);
     text-align: center;
-    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+    letter-spacing: -0.03em;
     position: relative;
     z-index: 3;
 }
 
 .section-subtitle {
-    font-size: var(--text-xl);
-    color: var(--text-dark);
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.55);
     text-align: center;
     margin-bottom: var(--space-16);
-    max-width: 800px;
+    max-width: 680px;
     margin-left: auto;
     margin-right: auto;
-    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8), 0 0 15px rgba(255, 255, 255, 0.5);
     position: relative;
     z-index: 3;
-    font-weight: var(--font-medium);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-relaxed);
 }
 
 /* 반응형 */

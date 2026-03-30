@@ -4,41 +4,38 @@
    =========================================== */
 
 .card {
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--bg-white);
     padding: var(--space-10);
-    border-radius: var(--radius-xl);
-    box-shadow: 0 5px 20px var(--shadow-dark);
-    transition: all var(--transition-normal);
-    border: 2px solid transparent;
-    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .card-hoverable:hover {
-    border-color: var(--accent-color);
-    box-shadow: 0 15px 40px var(--shadow-primary);
-    transform: translateY(-5px);
+    border-color: var(--border-medium);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
 }
 
 .card-icon {
-    font-size: 3.5rem;
+    font-size: 2rem;
     line-height: 1;
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-5);
+    opacity: 0.85;
 }
 
 .card-title {
-    font-size: var(--text-2xl);
+    font-size: var(--text-xl);
     font-weight: var(--font-bold);
-    color: var(--primary-color);
-    margin-bottom: var(--space-4);
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    color: var(--text-dark);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.01em;
 }
 
 .card-description {
-    font-size: var(--text-lg);
-    color: var(--text-dark);
+    font-size: var(--text-base);
+    color: var(--text-light);
     line-height: var(--leading-relaxed);
-    margin-bottom: var(--space-8);
-    font-weight: var(--font-medium);
+    margin-bottom: var(--space-6);
+    font-weight: var(--font-normal);
 }
 
 .card-features {
@@ -51,29 +48,28 @@
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    font-size: var(--text-base);
-    color: var(--text-dark);
-    margin-bottom: var(--space-3);
-    padding: var(--space-2) 0;
-    font-weight: var(--font-medium);
+    font-size: var(--text-sm);
+    color: var(--text-body);
+    margin-bottom: var(--space-2);
+    padding: var(--space-1) 0;
+    font-weight: var(--font-normal);
 }
 
 .feature-check {
-    color: var(--secondary-color);
-    font-weight: var(--font-bold);
-    font-size: var(--text-xl);
-    min-width: 1.2rem;
+    color: var(--primary-color);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+    min-width: 1rem;
     text-align: center;
+    flex-shrink: 0;
 }
 
 .card-stats {
-    font-size: var(--text-lg);
+    font-size: var(--text-sm);
     font-weight: var(--font-semibold);
-    color: var(--secondary-color);
-    padding: var(--space-3) var(--space-6);
-    background: var(--bg-white);
-    border-radius: var(--radius-full);
+    color: var(--primary-color);
     display: inline-block;
+    letter-spacing: 0.01em;
 }
 
 /* Variant: Intro */
@@ -83,9 +79,8 @@
 
 /* Variant: Strength */
 .card-strength {
-    text-align: center;
+    text-align: left;
     position: relative;
-    overflow: hidden;
 }
 
 .card-strength::before {
@@ -94,9 +89,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 4px;
-    background: var(--gradient-primary);
+    height: 2px;
+    background: var(--primary-color);
     transform: scaleX(0);
+    transform-origin: left;
     transition: transform var(--transition-normal);
 }
 
@@ -108,19 +104,19 @@
 .card-info {
     display: flex;
     align-items: center;
-    gap: var(--space-6);
-    padding: var(--space-6);
+    gap: var(--space-5);
+    padding: var(--space-5) var(--space-6);
+    background: var(--bg-white);
 }
 
 .card-info .card-icon {
-    width: 60px;
-    height: 60px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--gradient-primary);
-    border-radius: 50%;
+    color: var(--primary-color);
     flex-shrink: 0;
-    font-size: 2rem;
+    font-size: 1.25rem;
     margin-bottom: 0;
 }

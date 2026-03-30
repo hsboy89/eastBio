@@ -13,19 +13,24 @@
     --accent-color: #4fc3a1;
 
     /* 텍스트 색상 */
-    --text-dark: #1a1a1a;
+    --text-dark: #111111;
+    --text-body: #333333;
     --text-light: #666666;
     --text-muted: #999999;
     --text-white: #ffffff;
 
     /* 배경 색상 */
     --bg-white: #ffffff;
-    --bg-light: #f8f9fa;
-    --bg-dark: #1a1a1a;
+    --bg-light: #f7f6f4;
+    --bg-dark: #111111;
+
+    /* 경계선 */
+    --border-light: #e5e3df;
+    --border-medium: #ccc9c3;
 
     /* 그라데이션 */
-    --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
-    --gradient-accent: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+    --gradient-primary: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-light) 100%);
+    --gradient-accent: linear-gradient(180deg, var(--secondary-color) 0%, var(--accent-color) 100%);
 
     /* 상태 색상 */
     --color-success: #10b981;
@@ -34,6 +39,6 @@
     --color-info: #3b82f6;
 
     /* 그림자 색상 */
-    --shadow-primary: rgba(26, 95, 63, 0.3);
-    --shadow-dark: rgba(0, 0, 0, 0.15);
+    --shadow-primary: rgba(26, 95, 63, 0.15);
+    --shadow-dark: rgba(0, 0, 0, 0.08);
 }

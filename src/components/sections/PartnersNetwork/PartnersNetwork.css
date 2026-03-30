@@ -1,6 +1,6 @@
 .partners-network {
   position: relative;
-  background: var(--bg-light);
+  background: #0d0d0d;
   padding: 120px 0;
   overflow: hidden;
 }
@@ -17,6 +17,7 @@
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
+  opacity: 0.18;
 }
 
 .partners-network::after {
@@ -27,9 +28,9 @@
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    135deg,
-    rgba(248, 249, 250, 0.3) 0%,
-    rgba(233, 236, 239, 0.4) 100%
+    to bottom,
+    rgba(13, 13, 13, 0.6) 0%,
+    rgba(13, 13, 13, 0.8) 100%
   );
   z-index: 1;
 }
@@ -37,17 +38,19 @@
 .partners-section {
   position: relative;
   z-index: 2;
-  margin-bottom: 6rem;
+  margin-bottom: 5rem;
 }
 
 .partners-title,
 .network-title {
-  font-size: 2rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--primary-color);
+  color: rgba(255, 255, 255, 0.55);
   text-align: center;
-  margin-bottom: 3rem;
-  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.5);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
   position: relative;
   z-index: 3;
 }
@@ -59,15 +62,15 @@
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 5%,
-    black 95%,
+    black 8%,
+    black 92%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 5%,
-    black 95%,
+    black 8%,
+    black 92%,
     transparent 100%
   );
   display: flex;
@@ -76,7 +79,7 @@
 
 .partners-slider {
   display: flex;
-  gap: 1.5rem;
+  gap: 1px;
   width: fit-content;
   transition: transform 0.3s ease;
   will-change: transform;
@@ -86,74 +89,61 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
-  font-size: 2rem;
-  font-weight: bold;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.25rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
 }
 
 .slider-arrow:hover {
-  background: var(--primary-color);
-  color: white;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 5px 20px rgba(26, 95, 63, 0.3);
+  background: rgba(110, 231, 183, 0.15);
+  border-color: #6ee7b7;
+  color: #6ee7b7;
 }
 
 .slider-arrow-left {
-  left: 20px;
+  left: 12px;
 }
 
 .slider-arrow-right {
-  right: 20px;
-}
-
-.slider-arrow:active {
-  transform: translateY(-50%) scale(0.95);
+  right: 12px;
 }
 
 .partner-card {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
   text-align: center;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  backdrop-filter: blur(10px);
+  transition: background 0.2s ease;
   flex-shrink: 0;
-  min-width: 200px;
-  width: 200px;
+  min-width: 180px;
+  width: 180px;
 }
 
 .partner-card:hover {
-  border-color: var(--accent-color);
-  box-shadow: 0 8px 25px rgba(26, 95, 63, 0.15);
-  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .partner-category {
-  font-size: 0.9rem;
-  color: var(--text-light);
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.35);
   margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .partner-name {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--primary-color);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .network-section {
@@ -164,12 +154,10 @@
 }
 
 .network-map {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 3rem;
-  border-radius: 20px;
-  margin-bottom: 3rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 1px;
 }
 
 .map-svg {
@@ -180,39 +168,47 @@
 
 .network-point {
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .network-point:hover {
-  fill: var(--accent-color);
-  r: 3;
+  fill: #6ee7b7;
 }
 
 .network-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  text-align: center;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .stat-item {
-  background: rgba(255, 255, 255, 0.95);
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.stat-item:hover {
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .stat-number {
   font-size: 2.5rem;
   font-weight: 800;
-  color: var(--primary-color);
-  margin-bottom: 0.5rem;
+  color: #6ee7b7;
+  margin-bottom: 0.375rem;
+  letter-spacing: -0.04em;
+  line-height: 1;
 }
 
 .stat-label {
-  font-size: 1rem;
-  color: var(--text-light);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 @media (max-width: 768px) {
@@ -221,40 +217,20 @@
   }
 
   .partners-section {
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
   }
 
-  .partners-slider {
-    gap: 1rem;
-  }
-  
   .partner-card {
     min-width: 150px;
     width: 150px;
-    padding: 1.5rem;
-  }
-
-  .slider-arrow {
-    width: 40px;
-    height: 40px;
-    font-size: 1.5rem;
-  }
-
-  .slider-arrow-left {
-    left: 10px;
-  }
-
-  .slider-arrow-right {
-    right: 10px;
+    padding: 1.25rem;
   }
 
   .network-map {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
   }
 
   .network-stats {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
   }
 }
-
