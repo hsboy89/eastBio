@@ -25,8 +25,7 @@ const CompanyIntro = () => {
             <div className="section-container">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '0px' }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
                     <h2 className="section-title">회사 소개</h2>
@@ -44,8 +43,7 @@ const CompanyIntro = () => {
                 <motion.div
                     className="ceo-message"
                     initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '0px' }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
                 >
                     <div className="message-content">

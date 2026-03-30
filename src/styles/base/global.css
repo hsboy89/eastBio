@@ -3,15 +3,21 @@
    전역 레이아웃 및 컴포넌트 스타일
    =========================================== */
 
-/* 앱 루트 */
+/* 앱 루트 — 수평 슬라이드 모드: 스크롤 없음 */
+html, body {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+}
+
 #root {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
 }
 
 .app {
     width: 100%;
-    min-height: 100vh;
+    height: 100%;
     position: relative;
     transform: translateZ(0);
     -webkit-font-smoothing: antialiased;
@@ -36,17 +42,19 @@
     background: var(--text-muted);
 }
 
-/* 섹션 공통 스타일 */
+/* 섹션 공통 스타일 — 수평 슬라이드에서 각 섹션은 정확히 100vh */
 section {
     width: 100%;
+    height: 100vh;
     min-height: 100vh;
     position: relative;
-    padding: var(--section-padding-y) 0;
+    padding: 68px 0 0;   /* nav height top offset */
     display: flex;
     align-items: center;
     justify-content: center;
     transform: translateZ(0);
-    will-change: scroll-position;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 .section-container {
@@ -73,7 +81,7 @@ section {
     font-size: var(--text-lg);
     color: rgba(255, 255, 255, 0.55);
     text-align: center;
-    margin-bottom: var(--space-16);
+    margin-bottom: var(--space-8);
     max-width: 680px;
     margin-left: auto;
     margin-right: auto;

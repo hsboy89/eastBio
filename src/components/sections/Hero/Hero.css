@@ -5,14 +5,15 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
-  min-height: 600px;
+  height: 100vh !important;
+  min-height: 100vh !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: #0a0a10;
+  background: transparent;
+  padding-top: 0 !important; /* hero uses its own body offset */
 }
 
 /* ── Background ── */
@@ -41,9 +42,9 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(5, 8, 20, 0.55) 0%,
-    rgba(5, 8, 20, 0.65) 60%,
-    rgba(5, 8, 20, 0.88) 100%
+    rgba(3, 5, 18, 0.15) 0%,
+    rgba(3, 5, 18, 0.35) 60%,
+    rgba(3, 5, 18, 0.7) 100%
   );
 }
 
