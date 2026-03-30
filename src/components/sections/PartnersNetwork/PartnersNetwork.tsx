@@ -129,8 +129,7 @@ const PartnersNetwork = () => {
             <div className="section-container">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '0px' }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                 >
                     <h2 className="section-title">파트너 & 네트워크</h2>
@@ -142,9 +141,8 @@ const PartnersNetwork = () => {
                 <motion.div
                     className="partners-section"
                     initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.15 }}
                 >
                     <h3 className="partners-title">주요 파트너사</h3>
                     <div
@@ -186,9 +184,8 @@ const PartnersNetwork = () => {
                 <motion.div
                     className="network-section"
                     initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '0px' }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.3 }}
                 >
                     <h3 className="network-title">전국 유통망</h3>
                     <div className="network-map">

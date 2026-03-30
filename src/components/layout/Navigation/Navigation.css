@@ -9,12 +9,53 @@
     right: 0;
     z-index: 1000;
     font-family: inherit;
+    transition: background 0.4s ease;
 }
 
 /* ── Main bar ── */
 .nav-bar {
     background: #ffffff;
     border-bottom: 1px solid #e8e8e8;
+    transition: background 0.4s ease, border-color 0.4s ease;
+}
+
+/* Hero slide: transparent dark nav */
+.navigation--hero .nav-bar {
+    background: rgba(3, 5, 18, 0.55);
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.navigation--hero .logo-text {
+    color: #ffffff;
+}
+
+.navigation--hero .nav-item > button {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.navigation--hero .nav-item:hover > button,
+.navigation--hero .nav-item.active > button,
+.navigation--hero .nav-item.current > button {
+    color: #ffffff;
+}
+
+.navigation--hero .mobile-menu-toggle span {
+    background: rgba(255, 255, 255, 0.85);
+}
+
+/* Current slide highlight */
+.nav-item.current > button {
+    color: var(--primary-color);
+}
+
+.nav-item.current > button::after {
+    transform: scaleX(1);
+}
+
+.mobile-menu-item.current {
+    color: var(--primary-color);
 }
 
 .nav-container {

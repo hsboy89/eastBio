@@ -33,8 +33,7 @@ const Contact = () => {
                 <div className="section-container">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '0px' }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                     >
                         <h2 className="section-title">연락처</h2>
@@ -46,9 +45,8 @@ const Contact = () => {
                     <motion.div
                         className="contact-content"
                         initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, amount: 0.2 }}
-                        transition={{ duration: 0.8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         <h3 className="info-title">연락처 정보</h3>
                         <div className="info-list">
@@ -62,8 +60,7 @@ const Contact = () => {
                     <motion.div
                         className="contact-footer"
                         initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: '0px' }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
                     >
                         <p className="footer-text">
